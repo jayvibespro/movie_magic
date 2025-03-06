@@ -1,8 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
+@singleton
 class SessionManager {
   Future<void> setAccessToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

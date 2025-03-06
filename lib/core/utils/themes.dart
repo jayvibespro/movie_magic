@@ -6,7 +6,7 @@ import 'constants/colors.dart';
 class Themes {
   static final darkTheme = ThemeData(
     useMaterial3: true,
-    scaffoldBackgroundColor: cBlackMain,
+    scaffoldBackgroundColor: cBlack,
     primaryColor: cPrimary,
     focusColor: cPrimary,
     colorScheme: const ColorScheme.dark(),
@@ -19,7 +19,7 @@ class Themes {
 
     bottomAppBarTheme: const BottomAppBarTheme(
       color: cBlack,
-      surfaceTintColor: cBlackTransparent,
+      surfaceTintColor: cBlackWithOpacity,
     ),
     appBarTheme: const AppBarTheme(
       toolbarHeight: 70,
@@ -65,85 +65,76 @@ class Themes {
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w800, // Bold
         fontSize: 24.0,
-        color: Colors.black,
+        color: cWhite,
       ),
       headlineMedium: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w700, // Heavy
         fontSize: 22.0,
-        color: Colors.black,
+        color: cWhite,
       ),
       headlineSmall: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w600, // Heavy
         fontSize: 18.0,
-        color: Colors.black,
+        color: cWhite,
       ),
       displayLarge: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w600, // Medium
         fontSize: 16.0,
-        color: Colors.black,
+        color: cWhite,
       ),
       displayMedium: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w400, // Normal
         fontSize: 14.0,
-        color: Colors.black,
+        color: cWhite,
       ),
       displaySmall: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w400, // Normal
         fontSize: 14.0,
-        color: Colors.black,
+        color: cWhite,
       ),
       bodyLarge: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w600, // Medium
         fontSize: 16.0,
-        color: Colors.black,
+        color: cWhite,
       ),
       bodyMedium: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w400, // Normal
         fontSize: 14.0,
-        color: Colors.black,
+        color: cWhite,
       ),
       bodySmall: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w400, // Normal
         fontSize: 14.0,
-        color: Colors.black,
+        color: cWhite,
       ),
     ),
 
     // textTheme: GoogleFonts.montserratTextTheme(),
-
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        padding: WidgetStateProperty.all(
-          const EdgeInsets.all(12),
-        ),
-        foregroundColor: WidgetStateProperty.all(
-          Colors.white,
-        ),
-        backgroundColor: WidgetStateProperty.all(
-          cPrimary,
-        ),
+        padding: WidgetStateProperty.all(const EdgeInsets.all(12)),
+        foregroundColor: WidgetStateProperty.all(cWhite),
+        backgroundColor: WidgetStateProperty.all(cPrimary),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
-        padding: WidgetStateProperty.all(
-          const EdgeInsets.all(12),
-        ),
+        padding: WidgetStateProperty.all(const EdgeInsets.all(12)),
       ),
     ),
   );
 
   static final lightTheme = ThemeData(
     // Define the default brightness and colors.
-    scaffoldBackgroundColor: cBlackMain,
+    scaffoldBackgroundColor: cBlack,
     focusColor: cPrimary,
     useMaterial3: true,
     brightness: Brightness.light,
@@ -155,27 +146,21 @@ class Themes {
     indicatorColor: cPrimary,
     bottomAppBarTheme: const BottomAppBarTheme(
       color: cBlack,
-      surfaceTintColor: cBlackTransparent,
+      surfaceTintColor: cBlackWithOpacity,
     ),
 
     tabBarTheme: TabBarTheme(
       indicatorColor: cPrimary,
       labelColor: cPrimary,
-      overlayColor: WidgetStatePropertyAll(
-        cPrimary.withOpacity(0.15),
-      ),
+      overlayColor: WidgetStatePropertyAll(cPrimary.withOpacity(0.15)),
     ),
-    dividerTheme: const DividerThemeData(
-      color: cPrimary,
-    ),
+    dividerTheme: const DividerThemeData(color: cPrimary),
 
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       foregroundColor: Colors.black87,
       toolbarHeight: 70,
-      iconTheme: IconThemeData(
-        color: Colors.black87,
-      ),
+      iconTheme: IconThemeData(color: Colors.black87),
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.light,
         statusBarColor: Colors.transparent,
@@ -217,12 +202,8 @@ class Themes {
       }),
     ),
     checkboxTheme: const CheckboxThemeData(
-      fillColor: WidgetStatePropertyAll(
-        cPrimary,
-      ),
-      overlayColor: WidgetStatePropertyAll(
-        Colors.white,
-      ),
+      fillColor: WidgetStatePropertyAll(cPrimary),
+      overlayColor: WidgetStatePropertyAll(Colors.white),
     ),
 
     // Define the default font family.
@@ -233,107 +214,82 @@ class Themes {
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w800, // Bold
         fontSize: 24.0,
-        color: Colors.black,
+        color: cBlack,
       ),
       headlineMedium: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w700, // Heavy
         fontSize: 22.0,
-        color: Colors.black,
+        color: cBlack,
       ),
       headlineSmall: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w600, // Heavy
         fontSize: 18.0,
-        color: Colors.black,
+        color: cBlack,
       ),
       displayLarge: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w600, // Medium
         fontSize: 16.0,
-        color: Colors.black,
+        color: cBlack,
       ),
       displayMedium: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w400, // Normal
         fontSize: 14.0,
-        color: Colors.black,
+        color: cBlack,
       ),
       displaySmall: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w400, // Normal
         fontSize: 14.0,
-        color: Colors.black,
+        color: cBlack,
       ),
       bodyLarge: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w600, // Medium
         fontSize: 16.0,
-        color: Colors.black,
+        color: cBlack,
       ),
       bodyMedium: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w400, // Normal
         fontSize: 14.0,
-        color: Colors.black,
+        color: cBlack,
       ),
       bodySmall: TextStyle(
         fontFamily: 'mark_pro',
         fontWeight: FontWeight.w400, // Normal
         fontSize: 14.0,
-        color: Colors.black,
+        color: cBlack,
       ),
     ),
 
     // textTheme: GoogleFonts.montserratTextTheme(),
-
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        padding: WidgetStateProperty.all(
-          const EdgeInsets.all(12),
-        ),
-        foregroundColor: WidgetStateProperty.all(
-          Colors.white,
-        ),
-        backgroundColor: WidgetStateProperty.all(
-          cPrimary,
-        ),
+        padding: WidgetStateProperty.all(const EdgeInsets.all(12)),
+        foregroundColor: WidgetStateProperty.all(cWhite),
+        backgroundColor: WidgetStateProperty.all(cPrimary),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
-        textStyle: WidgetStateProperty.all(
-          const TextStyle(
-            color: cPrimary,
-          ),
-        ),
-        padding: WidgetStateProperty.all(
-          const EdgeInsets.all(12),
-        ),
-        foregroundColor: WidgetStateProperty.all(
-          Colors.white,
-        ),
-        backgroundColor: WidgetStateProperty.all(
-          Colors.white,
-        ),
+        textStyle: WidgetStateProperty.all(const TextStyle(color: cPrimary)),
+        padding: WidgetStateProperty.all(const EdgeInsets.all(12)),
+        foregroundColor: WidgetStateProperty.all(Colors.white),
+        backgroundColor: WidgetStateProperty.all(Colors.white),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
-        textStyle: WidgetStateProperty.all(
-          const TextStyle(
-            color: cPrimary,
-          ),
-        ),
+        textStyle: WidgetStateProperty.all(const TextStyle(color: cPrimary)),
         // padding: MaterialStateProperty.all(
         //   const EdgeInsets.all(12),
         // ),
-        foregroundColor: WidgetStateProperty.all(
-          cPrimary,
-        ),
-        backgroundColor: WidgetStateProperty.all(
-          Colors.white,
-        ),
+        foregroundColor: WidgetStateProperty.all(cPrimary),
+        backgroundColor: WidgetStateProperty.all(Colors.white),
       ),
     ),
     dividerColor: Colors.black26,
