@@ -1,6 +1,7 @@
 import 'package:daladala/core/utils/constants/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../home_screen/home_screen.dart';
 import '../sign_up_screen/sign_up_screen.dart';
 import 'sign_in_screen_controller.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,8 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
-  final _signInScreenController = getIt<SignInScreenController>();
+  final SignInScreenController _signInScreenController =
+      getIt<SignInScreenController>();
 
   @override
   void initState() {
@@ -100,6 +102,11 @@ class _SignInScreenState extends State<SignInScreen> {
                           );
                           _signInScreenController.signIn();
                         }*/
+                        Get.to(
+                          () => HomeScreen(),
+                          transition: Transition.circularReveal,
+                          duration: Duration(milliseconds: 1200),
+                        );
                       },
                       label: "Sign in",
                     ),
@@ -137,17 +144,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     InkWell(
                       onTap: () {},
                       borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                            width: 0.5,
-                            color: cWhiteWithOpacity.withOpacity(0.5),
+                      child: Hero(
+                        tag: "G_LOGO",
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                              width: 0.5,
+                              color: cWhiteWithOpacity.withOpacity(0.5),
+                            ),
                           ),
-                        ),
-                        child: Hero(
-                          tag: "G_LOGO",
                           child: SvgPicture.asset(
                             "assets/svg/Google_G_logo.svg",
                             width: 40,

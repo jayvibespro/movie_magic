@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   children: [
                     TextSpan(
-                      text: "Magic Movies",
+                      text: "Movie Magic",
                       style: TextStyle(
                         color: cPrimary,
                         fontWeight: FontWeight.bold,

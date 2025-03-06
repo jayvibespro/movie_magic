@@ -22,6 +22,7 @@ dependencies:
   get: ^4.7.2
   provider: ^6.1.2
   flutter_svg: ^2.0.17
+  heroicons: ^0.11.0
 
 dev_dependencies:
   flutter_test:

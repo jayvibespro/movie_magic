@@ -1,5 +1,7 @@
 import 'package:daladala/core/utils/constants/colors.dart';
+import 'package:daladala/presentation/screens/home_screen/home_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:heroicons/heroicons.dart';
 
 import 'sign_up_screen_controller.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +22,12 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
-  final _signInScreenController = getIt<SignUpScreenController>();
+  final SignUpScreenController _signUpScreenController =
+      getIt<SignUpScreenController>();
 
   @override
   void initState() {
-    _signInScreenController.initialize(setState, context);
+    _signUpScreenController.initialize(setState, context);
     super.initState();
   }
 
@@ -51,6 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             padding: const EdgeInsets.all(20),
             children: [
               const SizedBox(height: 20),
+
               FormBuilder(
                 key: _formKey,
                 child: Column(
@@ -58,6 +62,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () => Get.back(),
+                          borderRadius: BorderRadius.circular(50),
+                          child: Container(
+                            padding: EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: cWhite,
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(
+                                width: 0.5,
+                                color: cWhiteWithOpacity.withOpacity(0.5),
+                              ),
+                            ),
+                            child: HeroIcon(
+                              HeroIcons.chevronLeft,
+                              color: cBlack,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     const Text(
                       "Create your account",
                       textAlign: TextAlign.center,
@@ -116,6 +144,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           );
                           _signInScreenController.signIn();
                         }*/
+
+                        Get.to(
+                          () => HomeScreen(),
+                          transition: Transition.circularReveal,
+                          duration: Duration(milliseconds: 1200),
+                        );
                       },
                       label: "Sign up",
                     ),
@@ -136,17 +170,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     InkWell(
                       onTap: () {},
                       borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                            width: 0.5,
-                            color: cWhiteWithOpacity.withOpacity(0.5),
+                      child: Hero(
+                        tag: "G_LOGO",
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                              width: 0.5,
+                              color: cWhiteWithOpacity.withOpacity(0.5),
+                            ),
                           ),
-                        ),
-                        child: Hero(
-                          tag: "G_LOGO",
                           child: SvgPicture.asset(
                             "assets/svg/Google_G_logo.svg",
                             width: 40,
@@ -160,9 +194,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       children: [
                         Flexible(child: Text("Already have an account? ")),
                         TextButton(
-                          onPressed: () async {
-                            Get.back();
-                          },
+                          onPressed: () => Get.back(),
                           child: Text(
                             "Sign in",
                             style: TextStyle(fontSize: 16, color: cPrimary),
