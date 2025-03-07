@@ -1,12 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:daladala/core/models/movie_model/movie_model.dart';
 import 'package:daladala/core/utils/constants/colors.dart';
+import 'package:daladala/core/utils/constants/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:heroicons/heroicons.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../screens/film_screen/film_screen.dart';
 
 class TrendingMovieCard extends StatelessWidget {
-  const TrendingMovieCard({super.key});
+  final MovieModel movie;
+  const TrendingMovieCard({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +33,38 @@ class TrendingMovieCard extends StatelessWidget {
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
           child: Stack(
             children: [
-              Image.asset(
-                "assets/images/doctor_strange.jpg",
+              CachedNetworkImage(
+                imageUrl: "$backdropBaseUrl/${movie.posterPath ?? ""}",
                 height: 220,
                 width: 140,
+                placeholder:
+                    (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        height: 220,
+                        width: 140,
+                        color: Colors.white,
+                      ),
+                    ),
+                errorWidget:
+                    (context, url, error) => Container(
+                      color: Colors.grey.shade300,
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          HeroIcon(
+                            HeroIcons.informationCircle,
+                            color: Colors.black,
+                            size: 60,
+                          ),
+                          Text(
+                            "Unable to load image",
+                            style: TextStyle(color: cGrey, fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ),
                 fit: BoxFit.cover,
               ),
               Positioned(
@@ -60,7 +93,7 @@ class TrendingMovieCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Heart of Stone",
+                      movie.title ?? "Movie Title",
                       textAlign: TextAlign.center,
                       style: TextStyle(color: cGrey, fontSize: 14),
                     ),

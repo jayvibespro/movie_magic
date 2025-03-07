@@ -3,13 +3,12 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:daladala/core/utils/constants/keys.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/api_response_model.dart';
 import '../utils/constants/urls.dart';
-import '../utils/session_manager.dart';
-
 
 class BaseService {
   Future<Map<String, String>> _buildHeaders() async {
@@ -28,8 +27,7 @@ class BaseService {
   }
 
   Future<String> _fetchToken() async {
-    await SessionManager().getAccessToken();
-    return await SessionManager().getAccessToken() ?? "";
+    return accessToken;
   }
 
   Future<ApiResponseModel<T?>> get<T>(

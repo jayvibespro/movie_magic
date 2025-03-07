@@ -126,11 +126,11 @@ class _FilmScreenState extends State<FilmScreen> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
+                      /*ActorCard(isActor: false),
                       ActorCard(isActor: false),
                       ActorCard(isActor: false),
                       ActorCard(isActor: false),
-                      ActorCard(isActor: false),
-                      ActorCard(isActor: false),
+                      ActorCard(isActor: false),*/
                     ],
                   ),
                 ),

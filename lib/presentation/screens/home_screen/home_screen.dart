@@ -51,62 +51,66 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: Scaffold(
         backgroundColor: cBlack,
-        body: ListView(
-          padding: EdgeInsets.all(0),
-          children: [
-            CustomPageView(pages: [1, 2, 3, 4, 5, 6]),
-            SectionTitle(title: "Continue Watching"),
-            SingleChildScrollView(
-              padding: EdgeInsets.only(left: 20, right: 10),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  PlayingMovieCard(),
-                  PlayingMovieCard(),
-                  PlayingMovieCard(),
-                ],
+        body: RefreshIndicator(
+          color: cPrimary,
+          backgroundColor: cWhite,
+          onRefresh: () {
+            return _homeScreenController.loadInitialData();
+          },
+          child: ListView(
+            padding: EdgeInsets.all(0),
+            children: [
+              CustomPageView(
+                movies: _homeScreenController.state.discoverMovies,
               ),
-            ),
-            SectionTitle(title: "Trending Now"),
-            SingleChildScrollView(
-              padding: EdgeInsets.only(left: 20, right: 10),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  TrendingMovieCard(),
-                  TrendingMovieCard(),
-                  TrendingMovieCard(),
-                ],
+              SectionTitle(title: "Continue Watching"),
+              SingleChildScrollView(
+                padding: EdgeInsets.only(left: 20, right: 10),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    PlayingMovieCard(),
+                    PlayingMovieCard(),
+                    PlayingMovieCard(),
+                  ],
+                ),
               ),
-            ),
-            SectionTitle(title: "Latest Movies"),
-            SingleChildScrollView(
-              padding: EdgeInsets.only(left: 20, right: 10),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  TrendingMovieCard(),
-                  TrendingMovieCard(),
-                  TrendingMovieCard(),
-                ],
+              SectionTitle(title: "Trending Now"),
+              SingleChildScrollView(
+                padding: EdgeInsets.only(left: 20, right: 10),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children:
+                      _homeScreenController.state.trendingMovies
+                          .map((movie) => TrendingMovieCard(movie: movie))
+                          .toList(),
+                ),
               ),
-            ),
-            SectionTitle(title: "Actors"),
-            SingleChildScrollView(
-              padding: EdgeInsets.only(left: 20),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  ActorCard(),
-                  ActorCard(),
-                  ActorCard(),
-                  ActorCard(),
-                  ActorCard(),
-                ],
+              SectionTitle(title: "Latest Movies"),
+              SingleChildScrollView(
+                padding: EdgeInsets.only(left: 20, right: 10),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children:
+                      _homeScreenController.state.latestMovies
+                          .map((movie) => TrendingMovieCard(movie: movie))
+                          .toList(),
+                ),
               ),
-            ),
-            SizedBox(height: 60),
-          ],
+              SectionTitle(title: "Actors"),
+              SingleChildScrollView(
+                padding: EdgeInsets.only(left: 20),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children:
+                      _homeScreenController.state.popularPeople
+                          .map((actor) => ActorCard(actor: actor))
+                          .toList(),
+                ),
+              ),
+              SizedBox(height: 60),
+            ],
+          ),
         ),
       ),
     );

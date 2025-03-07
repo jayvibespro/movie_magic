@@ -1,14 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:daladala/core/models/movie_model/movie_model.dart';
+import 'package:daladala/core/utils/constants/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:heroicons/heroicons.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../core/utils/constants/colors.dart';
 import 'custom_divider.dart';
 import 'custom_material_button.dart';
 
 class CustomPageView extends StatefulWidget {
-  final List<int> pages;
-  const CustomPageView({super.key, required this.pages});
+  final List<MovieModel> movies;
+  const CustomPageView({super.key, required this.movies});
 
   @override
   State<CustomPageView> createState() => _CustomPageViewState();
@@ -34,13 +38,16 @@ class _CustomPageViewState extends State<CustomPageView> {
   }
 
   void getPages() {
-    for (int i = 0; i < widget.pages.length; i++) {
+    if (widget.movies.length == list.length) return;
+    for (int i = 0; i < widget.movies.length; i++) {
       list.add(i);
     }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    getPages();
     return SizedBox(
       height: 360,
       width: MediaQuery.of(context).size.width,
@@ -55,13 +62,46 @@ class _CustomPageViewState extends State<CustomPageView> {
             scrollDirection: Axis.horizontal,
             controller: _pageViewController,
             children:
-                widget.pages
+                widget.movies
                     .map(
-                      (item) => Stack(
+                      (movie) => Stack(
                         children: [
-                          Image.asset(
-                            "assets/images/doctor_strange.jpg",
+                          CachedNetworkImage(
+                            imageUrl:
+                                "$imageBaseUrl/${movie.backdropPath ?? ""}",
                             width: MediaQuery.of(context).size.width,
+                            height: 360,
+                            placeholder:
+                                (context, url) => Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 360,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                            errorWidget:
+                                (context, url, error) => Container(
+                                  color: Colors.grey.shade300,
+                                  child: const Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      HeroIcon(
+                                        HeroIcons.informationCircle,
+                                        color: Colors.black,
+                                        size: 60,
+                                      ),
+                                      Text(
+                                        "Unable to load image",
+                                        style: TextStyle(
+                                          color: cGrey,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                             fit: BoxFit.cover,
                           ),
                           Column(
@@ -89,7 +129,7 @@ class _CustomPageViewState extends State<CustomPageView> {
                                     children: [
                                       SvgPicture.asset("assets/svg/star.svg"),
                                       Text(
-                                        " 7.5",
+                                        " ${(movie.voteAverage ?? 0).toStringAsFixed(1)}",
                                         style: TextStyle(
                                           color: cGrey,
                                           fontWeight: FontWeight.bold,
@@ -108,7 +148,7 @@ class _CustomPageViewState extends State<CustomPageView> {
                                   5,
                                 ),
                                 child: Text(
-                                  "Doctor Strange",
+                                  movie.title ?? "Movie Title",
                                   style: TextStyle(
                                     fontSize: 25,
                                     fontWeight: FontWeight.bold,
@@ -187,7 +227,8 @@ class _CustomPageViewState extends State<CustomPageView> {
 
           Positioned(
             right: 20,
-            bottom: 90,
+            left: 20,
+            bottom: 4,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
