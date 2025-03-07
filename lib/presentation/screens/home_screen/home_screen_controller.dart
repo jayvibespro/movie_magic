@@ -1,7 +1,6 @@
 import 'package:daladala/core/models/api_response_model.dart';
 import 'package:daladala/core/models/movie_model/movie_model.dart';
 import 'package:daladala/core/models/people_model/people_model.dart';
-import 'package:daladala/core/utils/constants/keys.dart';
 import 'package:daladala/presentation/screens/home_screen/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -9,6 +8,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/services/data_service.dart';
 import '../../../../core/state/app_state.dart';
 import '../../../../core/utils/session_manager.dart';
+import '../../../core/models/movie_details_model/movie_details_model.dart';
 
 @injectable
 class HomeScreenController {
@@ -37,7 +37,12 @@ class HomeScreenController {
   }
 
   Future<void> loadInitialData() async {
-    state.loading = true;
+    if (state.discoverMovies.isEmpty &&
+        state.popularPeople.isEmpty &&
+        state.trendingMovies.isEmpty &&
+        state.latestMovies.isEmpty) {
+      state.loading = true;
+    }
     _update();
 
     final futures = [
@@ -74,6 +79,18 @@ class HomeScreenController {
         await _dataService.getDiscoverMovies();
     if (apiResponse.success) {
       state.discoverMovies = apiResponse.data!;
+
+      for (var movie in state.discoverMovies) {
+        List<Genre> genres = [];
+
+        for (var genre in appState.genres) {
+          if (movie.genreIds.contains(genre.id)) {
+            genres.add(genre);
+          }
+        }
+
+        movie.genres = genres;
+      }
     }
   }
 

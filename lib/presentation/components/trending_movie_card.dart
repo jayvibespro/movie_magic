@@ -11,20 +11,19 @@ import '../screens/film_screen/film_screen.dart';
 
 class TrendingMovieCard extends StatelessWidget {
   final MovieModel movie;
-  const TrendingMovieCard({super.key, required this.movie});
+  final VoidCallback onTap;
+  const TrendingMovieCard({
+    super.key,
+    required this.movie,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 10.0),
       child: InkWell(
-        onTap:
-            () => Get.to(
-              () => const FilmScreen(),
-              transition: Transition.rightToLeft,
-              curve: Curves.easeInOutBack,
-              duration: const Duration(milliseconds: 1200),
-            ),
+        onTap: onTap,
         borderRadius: BorderRadius.circular(10),
         child: Container(
           height: 220,

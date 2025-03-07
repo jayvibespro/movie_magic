@@ -171,33 +171,26 @@ class _CustomPageViewState extends State<CustomPageView> {
                                     color: cBlack.withOpacity(0.7),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        "Action",
-                                        style: TextStyle(
-                                          color: cGrey,
-                                          fontSize: 14,
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: List.generate(
+                                        (movie.genres ?? []).length,
+                                        (index) => Row(
+                                          children: [
+                                            Text(
+                                              movie.genres![index].name ??
+                                                  "Genre",
+                                              style: TextStyle(color: cGrey),
+                                            ),
+                                            if (index !=
+                                                movie.genres!.length - 1)
+                                              CustomDivider(),
+                                          ],
                                         ),
                                       ),
-                                      CustomDivider(),
-                                      Text(
-                                        "Adventure",
-                                        style: TextStyle(
-                                          color: cGrey,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      CustomDivider(),
-                                      Text(
-                                        "Fantasy",
-                                        style: TextStyle(
-                                          color: cGrey,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),

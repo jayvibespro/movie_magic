@@ -17,6 +17,16 @@ class StringUtils {
     }
   }
 
+  static String formatDuration(int minutes) {
+    int hours = minutes ~/ 60; // Get the number of hours
+    int remainingMinutes = minutes % 60; // Get the remaining minutes
+
+    String hoursStr = hours > 0 ? "${hours}h " : "";
+    String minutesStr = remainingMinutes > 0 ? "${remainingMinutes}m" : "";
+
+    return (hoursStr + minutesStr).trim();
+  }
+
   static String getNameInitials(String fullName) {
     List<String> nameParts = fullName.split(" ");
 

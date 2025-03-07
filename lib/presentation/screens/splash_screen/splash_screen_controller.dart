@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import '../../../core/models/api_response_model.dart';
+import '../../../core/models/movie_details_model/movie_details_model.dart';
 import '../../../core/services/data_service.dart';
 import '../../../core/state/app_state.dart';
 import '../../../core/utils/session_manager.dart';
@@ -31,8 +32,15 @@ class SplashScreenController {
     checkLoggedInUser();
   }
 
+  Future<void> getGenres() async {
+    ApiResponseModel<List<Genre>?> apiResponse = await _dataService.getGenres();
+    if (apiResponse.success) {
+      appState.genres = apiResponse.data!;
+    }
+  }
+
   Future<void> checkLoggedInUser() async {
-    await Future.delayed(Duration(seconds: 3));
+    await getGenres();
     if (true) {
       Get.to(
         () => SignInScreen(),

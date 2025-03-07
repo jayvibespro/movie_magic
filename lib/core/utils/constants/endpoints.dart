@@ -4,5 +4,6 @@ const String epPopularMovies = '/movie/popular';
 const String epLatestMovies = '/movie/now_playing';
 const String epTrendingMovies = 'trending/movie/day';
 const String epDiscoverMovies = 'discover/movie';
+const String epMovieDetails = 'movie';
 const String epGenres = 'genre/movie/list';
 const String epPopularPeople = 'person/popular';

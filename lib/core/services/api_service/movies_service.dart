@@ -1,4 +1,5 @@
 import 'package:daladala/core/models/api_response_model.dart';
+import 'package:daladala/core/models/movie_details_model/movie_details_model.dart';
 import 'package:daladala/core/models/movie_model/movie_model.dart';
 import 'package:daladala/core/services/base_service.dart';
 import 'package:daladala/core/utils/constants/endpoints.dart';
@@ -41,11 +42,23 @@ mixin MoviesService implements BaseService {
     );
   }
 
-  Future<void> getPopularMovies() async {
-    await get(epPopularMovies);
+  Future<ApiResponseModel<MovieDetailsModel?>> getMovie(int movieId) async {
+    return await get<MovieDetailsModel>(
+      "$epMovieDetails/$movieId",
+      fromJson: (data) {
+        return MovieDetailsModel.fromJson(data as Map<String, dynamic>);
+      },
+    );
   }
 
-  Future<void> getGenres() async {
-    await get(epGenres);
+  Future<ApiResponseModel<List<Genre>?>> getGenres() async {
+    return await get<List<Genre>>(
+      epGenres,
+      fromJson: (data) {
+        return (data['genres'] as List<dynamic>)
+            .map((json) => Genre.fromJson(json as Map<String, dynamic>))
+            .toList();
+      },
+    );
   }
 }

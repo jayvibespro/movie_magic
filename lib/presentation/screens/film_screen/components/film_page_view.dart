@@ -1,14 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:daladala/core/models/movie_details_model/movie_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:heroicons/heroicons.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/utils/constants/colors.dart';
+import '../../../../core/utils/constants/urls.dart';
 import '../../../components/custom_divider.dart';
 import '../../../components/double_material_button.dart';
 
 class FilmPageView extends StatefulWidget {
-  final List<int> pages;
-  const FilmPageView({super.key, required this.pages});
+  final MovieDetailsModel movie;
+  const FilmPageView({super.key, required this.movie});
 
   @override
   State<FilmPageView> createState() => _FilmPageViewState();
@@ -20,10 +24,10 @@ class _FilmPageViewState extends State<FilmPageView> {
   int currentPage = 0;
 
   List<int> list = [];
+  List<String> pages = [];
 
   @override
   void initState() {
-    getPages();
     super.initState();
   }
 
@@ -34,13 +38,21 @@ class _FilmPageViewState extends State<FilmPageView> {
   }
 
   void getPages() {
-    for (int i = 0; i < widget.pages.length; i++) {
-      list.add(i);
+    if (widget.movie.backdropPath != null && list.isEmpty) {
+      list.add(0);
+      pages.add(widget.movie.backdropPath!);
     }
+    if (widget.movie.posterPath != null && list.length == 1) {
+      list.add(1);
+      pages.add(widget.movie.posterPath!);
+    }
+
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    getPages();
     return SizedBox(
       height: 360,
       width: MediaQuery.of(context).size.width,
@@ -55,13 +67,45 @@ class _FilmPageViewState extends State<FilmPageView> {
             scrollDirection: Axis.horizontal,
             controller: _pageViewController,
             children:
-                widget.pages
+                pages
                     .map(
                       (item) => Stack(
                         children: [
-                          Image.asset(
-                            "assets/images/doctor_strange.jpg",
+                          CachedNetworkImage(
+                            imageUrl: "$imageBaseUrl/$item}",
+                            height: 360,
                             width: MediaQuery.of(context).size.width,
+                            placeholder:
+                                (context, url) => Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    height: 360,
+                                    width: MediaQuery.of(context).size.width,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                            errorWidget:
+                                (context, url, error) => Container(
+                                  color: Colors.grey.shade300,
+                                  child: const Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      HeroIcon(
+                                        HeroIcons.informationCircle,
+                                        color: Colors.black,
+                                        size: 60,
+                                      ),
+                                      Text(
+                                        "Unable to load image",
+                                        style: TextStyle(
+                                          color: cGrey,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                             fit: BoxFit.cover,
                           ),
                         ],
@@ -89,14 +133,14 @@ class _FilmPageViewState extends State<FilmPageView> {
                         children: [
                           SvgPicture.asset("assets/svg/star.svg", width: 20),
                           Text(
-                            " 7.5",
+                            " ${(widget.movie.voteAverage ?? 0).toStringAsFixed(1)}",
                             style: TextStyle(color: cGrey, fontSize: 16),
                           ),
                         ],
                       ),
                       CustomDivider(height: 20),
                       Text(
-                        "2023",
+                        "${widget.movie.releaseDate?.split("-").first}",
                         style: TextStyle(color: cGrey, fontSize: 16),
                       ),
                       CustomDivider(),

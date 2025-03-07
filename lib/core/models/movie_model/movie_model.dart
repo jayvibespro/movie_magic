@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../movie_details_model/movie_details_model.dart';
+
 part 'movie_model.g.dart';
 
 @JsonSerializable()
@@ -43,6 +45,8 @@ class MovieModel {
   @JsonKey(name: 'vote_count')
   final int? voteCount;
 
+  List<Genre>? genres;
+
   MovieModel({
     required this.backdropPath,
     required this.id,
@@ -59,6 +63,7 @@ class MovieModel {
     this.video = false,
     required this.voteAverage,
     required this.voteCount,
+    this.genres,
   });
 
   // From JSON
