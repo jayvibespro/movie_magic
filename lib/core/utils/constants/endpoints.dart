@@ -7,3 +7,4 @@ const String epDiscoverMovies = 'discover/movie';
 const String epMovieDetails = 'movie';
 const String epGenres = 'genre/movie/list';
 const String epPopularPeople = 'person/popular';
+const String epPeopleDetails = 'person';

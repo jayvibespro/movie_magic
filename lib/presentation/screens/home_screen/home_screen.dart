@@ -10,6 +10,7 @@ import 'package:heroicons/heroicons.dart';
 
 import '../../components/custom_divider.dart';
 import '../../components/playing_movie_card.dart';
+import '../actor_screen/actor_screen.dart';
 import '../film_screen/film_screen.dart';
 import 'home_screen_controller.dart';
 import 'package:flutter/material.dart';
@@ -143,7 +144,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           children:
                               _homeScreenController.state.popularPeople
-                                  .map((actor) => ActorCard(actor: actor))
+                                  .map(
+                                    (actor) => ActorCard(
+                                      actor: actor,
+                                      onTap: () {
+                                        _homeScreenController
+                                            .appState
+                                            .selectedPeople = actor;
+                                        Get.to(
+                                          () => const ActorScreen(),
+                                          transition: Transition.rightToLeft,
+                                          curve: Curves.easeInOutBack,
+                                          duration: const Duration(
+                                            milliseconds: 1200,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  )
                                   .toList(),
                         ),
                       ),

@@ -7,6 +7,7 @@ import 'package:heroicons/heroicons.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../core/utils/constants/colors.dart';
+import 'Custom_cached_image.dart';
 import 'custom_divider.dart';
 import 'custom_material_button.dart';
 
@@ -66,43 +67,11 @@ class _CustomPageViewState extends State<CustomPageView> {
                     .map(
                       (movie) => Stack(
                         children: [
-                          CachedNetworkImage(
+                          CustomCachedImage(
                             imageUrl:
                                 "$imageBaseUrl/${movie.backdropPath ?? ""}",
                             width: MediaQuery.of(context).size.width,
                             height: 360,
-                            placeholder:
-                                (context, url) => Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 360,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                            errorWidget:
-                                (context, url, error) => Container(
-                                  color: Colors.grey.shade300,
-                                  child: const Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      HeroIcon(
-                                        HeroIcons.informationCircle,
-                                        color: Colors.black,
-                                        size: 60,
-                                      ),
-                                      Text(
-                                        "Unable to load image",
-                                        style: TextStyle(
-                                          color: cGrey,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                            fit: BoxFit.cover,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

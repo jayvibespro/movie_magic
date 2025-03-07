@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:daladala/core/models/movie_model/movie_model.dart';
 import 'package:daladala/core/utils/constants/colors.dart';
 import 'package:daladala/core/utils/constants/urls.dart';
+import 'package:daladala/presentation/components/Custom_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:heroicons/heroicons.dart';
@@ -32,39 +33,10 @@ class TrendingMovieCard extends StatelessWidget {
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
           child: Stack(
             children: [
-              CachedNetworkImage(
+              CustomCachedImage(
                 imageUrl: "$backdropBaseUrl/${movie.posterPath ?? ""}",
                 height: 220,
                 width: 140,
-                placeholder:
-                    (context, url) => Shimmer.fromColors(
-                      baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
-                      child: Container(
-                        height: 220,
-                        width: 140,
-                        color: Colors.white,
-                      ),
-                    ),
-                errorWidget:
-                    (context, url, error) => Container(
-                      color: Colors.grey.shade300,
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          HeroIcon(
-                            HeroIcons.informationCircle,
-                            color: Colors.black,
-                            size: 60,
-                          ),
-                          Text(
-                            "Unable to load image",
-                            style: TextStyle(color: cGrey, fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    ),
-                fit: BoxFit.cover,
               ),
               Positioned(
                 top: 5,

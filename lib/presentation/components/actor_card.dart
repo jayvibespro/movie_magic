@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:daladala/core/models/people_model/people_model.dart';
+import 'package:daladala/presentation/components/Custom_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,14 @@ import '../screens/actor_screen/actor_screen.dart';
 class ActorCard extends StatelessWidget {
   final bool isActor;
   final PeopleModel actor;
-  const ActorCard({super.key, this.isActor = true, required this.actor});
+  final VoidCallback onTap;
+
+  const ActorCard({
+    super.key,
+    this.isActor = true,
+    required this.actor,
+    required this.onTap,
+  });
 
   double _getRateAverage() {
     if (actor.knownFor != null) {
@@ -32,13 +40,7 @@ class ActorCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 20.0),
       child: InkWell(
-        onTap:
-            () => Get.to(
-              () => const ActorScreen(),
-              transition: Transition.rightToLeft,
-              curve: Curves.easeInOutBack,
-              duration: const Duration(milliseconds: 1200),
-            ),
+        onTap: onTap,
         borderRadius: BorderRadius.circular(10),
         child: SizedBox(
           width: 100,
@@ -50,39 +52,10 @@ class ActorCard extends StatelessWidget {
                 child: SizedBox(
                   width: 100,
                   height: 100,
-                  child: CachedNetworkImage(
+                  child: CustomCachedImage(
                     imageUrl: "$backdropBaseUrl/${actor.profilePath ?? ""}",
                     width: 100,
                     height: 100,
-                    placeholder:
-                        (context, url) => Shimmer.fromColors(
-                          baseColor: Colors.grey[300]!,
-                          highlightColor: Colors.grey[100]!,
-                          child: Container(
-                            height: 220,
-                            width: 140,
-                            color: Colors.white,
-                          ),
-                        ),
-                    errorWidget:
-                        (context, url, error) => Container(
-                          color: Colors.grey.shade300,
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              HeroIcon(
-                                HeroIcons.informationCircle,
-                                color: Colors.black,
-                                size: 60,
-                              ),
-                              Text(
-                                "Unable to load image",
-                                style: TextStyle(color: cGrey, fontSize: 14),
-                              ),
-                            ],
-                          ),
-                        ),
-                    fit: BoxFit.cover,
                   ),
                 ),
               ),

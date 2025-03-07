@@ -1,0 +1,55 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:heroicons/heroicons.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../core/utils/constants/colors.dart';
+import '../../core/utils/custom_cache_manager.dart';
+
+class CustomCachedImage extends StatelessWidget {
+  final String imageUrl;
+  final double height;
+  final double width;
+
+  const CustomCachedImage({
+    super.key,
+    required this.imageUrl,
+    required this.width,
+    required this.height,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      imageUrl: imageUrl,
+      width: width,
+      height: height,
+      cacheManager: CustomCacheManager.instance,
+      placeholder:
+          (context, url) => Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: Container(width: width, height: height, color: Colors.white),
+          ),
+      errorWidget:
+          (context, url, error) => Container(
+            color: Colors.grey.shade300,
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                HeroIcon(
+                  HeroIcons.informationCircle,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                Text(
+                  "Unable to load image",
+                  style: TextStyle(color: cGrey, fontSize: 14),
+                ),
+              ],
+            ),
+          ),
+      fit: BoxFit.cover,
+    );
+  }
+}
