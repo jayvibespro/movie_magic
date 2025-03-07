@@ -5,28 +5,29 @@ import 'package:daladala/presentation/components/section_title.dart';
 import 'package:heroicons/heroicons.dart';
 import '../../components/custom_back_button.dart';
 import '../../components/custom_icon_button.dart';
+import '../../components/filmography_card.dart';
 import '../../components/like_dislike_button.dart';
 import '../../components/review_container.dart';
-import 'components/film_page_view.dart';
-import 'film_screen_controller.dart';
+import 'components/actor_page_view.dart';
+import 'actor_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../../../core/di/di.dart';
 
-class FilmScreen extends StatefulWidget {
-  const FilmScreen({super.key});
+class ActorScreen extends StatefulWidget {
+  const ActorScreen({super.key});
 
   @override
-  State<FilmScreen> createState() => _FilmScreenState();
+  State<ActorScreen> createState() => _ActorScreenState();
 }
 
-class _FilmScreenState extends State<FilmScreen> {
-  final FilmScreenController _filmScreenController =
-      getIt<FilmScreenController>();
+class _ActorScreenState extends State<ActorScreen> {
+  final ActorScreenController _actorScreenController =
+      getIt<ActorScreenController>();
 
   @override
   void initState() {
-    _filmScreenController.initialize(setState, context);
+    _actorScreenController.initialize(setState, context);
     super.initState();
   }
 
@@ -52,7 +53,7 @@ class _FilmScreenState extends State<FilmScreen> {
             ListView(
               padding: EdgeInsets.all(0),
               children: [
-                FilmPageView(pages: [1, 2, 3, 4, 5, 6]),
+                ActorPageView(pages: [1, 2, 3, 4, 5, 6]),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 20),
                   child: Row(
@@ -61,14 +62,14 @@ class _FilmScreenState extends State<FilmScreen> {
                     children: [
                       Row(
                         children: [
-                          Text('Action', style: TextStyle(color: cGrey)),
+                          Text('Actor', style: TextStyle(color: cGrey)),
                           Dot(),
-                          Text('Adventure', style: TextStyle(color: cGrey)),
+                          Text('Producer', style: TextStyle(color: cGrey)),
                           Dot(),
-                          Text('Fantasy', style: TextStyle(color: cGrey)),
+                          Text('Stunts', style: TextStyle(color: cGrey)),
                         ],
                       ),
-                      Text('3h 12m', style: TextStyle(color: cGrey)),
+                      Text('July 26, 1967', style: TextStyle(color: cGrey)),
                     ],
                   ),
                 ),
@@ -78,69 +79,40 @@ class _FilmScreenState extends State<FilmScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Doctor Strange",
+                        "Jason Statham",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
                         ),
                       ),
                       Text(
-                        """Dr. Stephen Vincent Strange is a fictional character appearing in American comic books published by Marvel Comics. Created by Steve Ditko, the character first appeared in Strange Tales #110 (cover-dated July 1963). Doctor Strange serves as the Sorcerer Supreme, the primary protector of Earth against magical and mystical threats. Strange was introduced during the Silver Age of Comic Books in an attempt to bring a different kind of character and themes of mysticism to Marvel Comics.""",
+                        """Jason Statham (/ˈsteɪθəm/ STAY-thəm; born 26 July 1967) is an English actor and producer. He is known for portraying tough, gritty, or violent characters in various action thriller films, and has been credited for leading the resurgence of action films during the 2000s and 2010s.[1] By 2017, his films had grossed over £1.1 billion (\$1.5 billion), making him one of the industry's most bankable stars.""",
                         style: TextStyle(color: cWhiteWithOpacity),
-                      ),
-                      SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          LikeDislikeButton(onPressed: () {}),
-                          Row(
-                            children: [
-                              CustomIconButton(
-                                icon: HeroIcon(
-                                  HeroIcons.bookmark,
-                                  style: HeroIconStyle.solid,
-                                  color: cWhite,
-                                  size: 16,
-                                ),
-                              ),
-                              SizedBox(width: 10),
-                              CustomIconButton(
-                                color: cPrimary,
-                                icon: HeroIcon(
-                                  HeroIcons.arrowDownTray,
-                                  style: HeroIconStyle.solid,
-                                  color: cWhite,
-                                  size: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
                       ),
                     ],
                   ),
                 ),
-                SectionTitle(title: "Cast & Crew"),
+                SectionTitle(title: "Filmography"),
                 SingleChildScrollView(
                   padding: EdgeInsets.only(left: 20, bottom: 20),
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      ActorCard(isActor: false),
-                      ActorCard(isActor: false),
-                      ActorCard(isActor: false),
-                      ActorCard(isActor: false),
-                      ActorCard(isActor: false),
+                      FilmographyCard(),
+                      FilmographyCard(),
+                      FilmographyCard(),
+                      FilmographyCard(),
                     ],
                   ),
                 ),
+                SectionTitle(title: "Quick Facts", showTrailing: false),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Audio Track: ",
+                        "Birth City: ",
                         style: TextStyle(
                           fontSize: 16,
                           color: cWhite,
@@ -149,7 +121,7 @@ class _FilmScreenState extends State<FilmScreen> {
                       ),
                       Flexible(
                         child: Text(
-                          "English, Polish, Germany, Spanish",
+                          "Shirebrook",
                           style: TextStyle(fontSize: 16, color: cGrey),
                         ),
                       ),
@@ -162,7 +134,7 @@ class _FilmScreenState extends State<FilmScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Subtitles: ",
+                        "Birth Country: ",
                         style: TextStyle(
                           fontSize: 16,
                           color: cWhite,
@@ -171,28 +143,14 @@ class _FilmScreenState extends State<FilmScreen> {
                       ),
                       Flexible(
                         child: Text(
-                          "English, Germany, Spanish",
+                          "England",
                           style: TextStyle(fontSize: 16, color: cGrey),
                         ),
                       ),
                     ],
                   ),
                 ),
-                SectionTitle(
-                  title: "Reviews",
-                  trailing: TextButton(
-                    onPressed: () {},
-                    child: Text("All Reviews"),
-                  ),
-                ),
-                ReviewContainer(
-                  review:
-                      "Visually stunning action and packed but story is light",
-                ),
-                ReviewContainer(
-                  review:
-                      "Possibly the longest movie i've ever watch in theater yet one of the most fascinating movies",
-                ),
+
                 SizedBox(height: 60),
               ],
             ),

@@ -5,11 +5,14 @@ class SectionTitle extends StatelessWidget {
   final VoidCallback? onTap;
   final String title;
   final Widget? trailing;
+  final bool showTrailing;
+
   const SectionTitle({
     super.key,
     required this.title,
     this.onTap,
     this.trailing,
+    this.showTrailing = true,
   });
 
   @override
@@ -24,11 +27,12 @@ class SectionTitle extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
-          trailing ??
-              InkWell(
-                onTap: onTap,
-                child: HeroIcon(HeroIcons.chevronRight, color: Colors.white),
-              ),
+          if (showTrailing)
+            trailing ??
+                InkWell(
+                  onTap: onTap,
+                  child: HeroIcon(HeroIcons.chevronRight, color: Colors.white),
+                ),
         ],
       ),
     );
