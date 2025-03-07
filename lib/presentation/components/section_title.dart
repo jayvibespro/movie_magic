@@ -4,7 +4,13 @@ import 'package:heroicons/heroicons.dart';
 class SectionTitle extends StatelessWidget {
   final VoidCallback? onTap;
   final String title;
-  const SectionTitle({super.key, required this.title, this.onTap});
+  final Widget? trailing;
+  const SectionTitle({
+    super.key,
+    required this.title,
+    this.onTap,
+    this.trailing,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +21,14 @@ class SectionTitle extends StatelessWidget {
           Expanded(
             child: Text(
               title,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
-          InkWell(
-            onTap: onTap,
-            child: HeroIcon(HeroIcons.chevronRight, color: Colors.white),
-          ),
+          trailing ??
+              InkWell(
+                onTap: onTap,
+                child: HeroIcon(HeroIcons.chevronRight, color: Colors.white),
+              ),
         ],
       ),
     );

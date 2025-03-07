@@ -105,7 +105,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         Get.to(
                           () => HomeScreen(),
                           transition: Transition.circularReveal,
-                          duration: Duration(milliseconds: 1200),
+                          duration: Duration(milliseconds: 1600),
                         );
                       },
                       label: "Sign in",

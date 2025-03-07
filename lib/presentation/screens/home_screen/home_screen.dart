@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: ListView(
           padding: EdgeInsets.all(0),
           children: [
-            CustomPageView(pages: [1, 2, 3, 4]),
+            CustomPageView(pages: [1, 2, 3, 4, 5, 6]),
             SectionTitle(title: "Continue Watching"),
             SingleChildScrollView(
               padding: EdgeInsets.only(left: 20, right: 10),
@@ -96,7 +96,13 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.only(left: 20),
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [ActorCard(), ActorCard(), ActorCard(), ActorCard()],
+                children: [
+                  ActorCard(),
+                  ActorCard(),
+                  ActorCard(),
+                  ActorCard(),
+                  ActorCard(),
+                ],
               ),
             ),
             SizedBox(height: 60),

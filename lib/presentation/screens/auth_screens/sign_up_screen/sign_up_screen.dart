@@ -3,6 +3,7 @@ import 'package:daladala/presentation/screens/home_screen/home_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heroicons/heroicons.dart';
 
+import '../../../components/custom_back_button.dart';
 import 'sign_up_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -62,30 +63,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: () => Get.back(),
-                          borderRadius: BorderRadius.circular(50),
-                          child: Container(
-                            padding: EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              color: cWhite,
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(
-                                width: 0.5,
-                                color: cWhiteWithOpacity.withOpacity(0.5),
-                              ),
-                            ),
-                            child: HeroIcon(
-                              HeroIcons.chevronLeft,
-                              color: cBlack,
-                              size: 20,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    Row(children: [CustomBackButton()]),
                     const Text(
                       "Create your account",
                       textAlign: TextAlign.center,
@@ -148,7 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Get.to(
                           () => HomeScreen(),
                           transition: Transition.circularReveal,
-                          duration: Duration(milliseconds: 1200),
+                          duration: Duration(milliseconds: 1600),
                         );
                       },
                       label: "Sign up",
