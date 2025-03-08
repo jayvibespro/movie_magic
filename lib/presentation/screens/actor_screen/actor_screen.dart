@@ -56,7 +56,7 @@ class _ActorScreenState extends State<ActorScreen> {
                 : ListView(
                   padding: EdgeInsets.all(0),
                   children: [
-                    ActorPageView(pages: [1, 2, 3, 4, 5, 6]),
+                    ActorPageView(pages: _actorScreenController.state.profiles),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 20),
                       child: Row(
@@ -65,14 +65,25 @@ class _ActorScreenState extends State<ActorScreen> {
                         children: [
                           Row(
                             children: [
-                              Text('Actor', style: TextStyle(color: cGrey)),
-                              Dot(),
+                              Text(
+                                _actorScreenController
+                                        .state
+                                        .actor
+                                        .knownForDepartment ??
+                                    "Acting",
+                                style: TextStyle(color: cGrey),
+                              ),
+                              /* Dot(),
                               Text('Producer', style: TextStyle(color: cGrey)),
                               Dot(),
-                              Text('Stunts', style: TextStyle(color: cGrey)),
+                              Text('Stunts', style: TextStyle(color: cGrey)),*/
                             ],
                           ),
-                          Text('July 26, 1967', style: TextStyle(color: cGrey)),
+                          Text(
+                            _actorScreenController.state.actor.birthday ??
+                                'July 26, 1967',
+                            style: TextStyle(color: cGrey),
+                          ),
                         ],
                       ),
                     ),
@@ -82,14 +93,16 @@ class _ActorScreenState extends State<ActorScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Jason Statham",
+                            _actorScreenController.state.actor.name ??
+                                "Actor's Name",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 25,
                             ),
                           ),
                           Text(
-                            """Jason Statham (/ˈsteɪθəm/ STAY-thəm; born 26 July 1967) is an English actor and producer. He is known for portraying tough, gritty, or violent characters in various action thriller films, and has been credited for leading the resurgence of action films during the 2000s and 2010s.[1] By 2017, his films had grossed over £1.1 billion (\$1.5 billion), making him one of the industry's most bankable stars.""",
+                            _actorScreenController.state.actor.biography ??
+                                "Biography",
                             style: TextStyle(color: cWhiteWithOpacity),
                           ),
                         ],
@@ -100,12 +113,10 @@ class _ActorScreenState extends State<ActorScreen> {
                       padding: EdgeInsets.only(left: 20, bottom: 20),
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: [
-                          FilmographyCard(),
-                          FilmographyCard(),
-                          FilmographyCard(),
-                          FilmographyCard(),
-                        ],
+                        children:
+                            _actorScreenController.state.knownFor
+                                .map((movie) => FilmographyCard(movie: movie))
+                                .toList(),
                       ),
                     ),
                     SectionTitle(title: "Quick Facts", showTrailing: false),
@@ -115,7 +126,7 @@ class _ActorScreenState extends State<ActorScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Birth City: ",
+                            "Also known as: ",
                             style: TextStyle(
                               fontSize: 16,
                               color: cWhite,
@@ -124,7 +135,9 @@ class _ActorScreenState extends State<ActorScreen> {
                           ),
                           Flexible(
                             child: Text(
-                              "Shirebrook",
+                              (_actorScreenController.state.actor.alsoKnownAs ??
+                                      [])
+                                  .join(", "),
                               style: TextStyle(fontSize: 16, color: cGrey),
                             ),
                           ),
@@ -137,7 +150,7 @@ class _ActorScreenState extends State<ActorScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Birth Country: ",
+                            "Place of Birth: ",
                             style: TextStyle(
                               fontSize: 16,
                               color: cWhite,
@@ -146,7 +159,34 @@ class _ActorScreenState extends State<ActorScreen> {
                           ),
                           Flexible(
                             child: Text(
-                              "England",
+                              _actorScreenController.state.actor.placeOfBirth ??
+                                  "England",
+                              style: TextStyle(fontSize: 16, color: cGrey),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Gender: ",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: cWhite,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Flexible(
+                            child: Text(
+                              (_actorScreenController.state.actor.gender ??
+                                          0) !=
+                                      1
+                                  ? "Male"
+                                  : "Female",
                               style: TextStyle(fontSize: 16, color: cGrey),
                             ),
                           ),

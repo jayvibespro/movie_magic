@@ -1,9 +1,14 @@
+import 'package:daladala/core/models/movie_model/movie_model.dart';
 import 'package:daladala/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:heroicons/heroicons.dart';
 
+import '../../core/utils/constants/urls.dart';
+import 'Custom_cached_image.dart';
+
 class FilmographyCard extends StatelessWidget {
-  const FilmographyCard({super.key});
+  final MovieModel movie;
+  const FilmographyCard({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +21,10 @@ class FilmographyCard extends StatelessWidget {
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
         child: Stack(
           children: [
-            Image.asset(
-              "assets/images/doctor_strange.jpg",
+            CustomCachedImage(
+              imageUrl: "$imageBaseUrl/${movie.backdropPath ?? ""}",
               height: 180,
               width: 280,
-              fit: BoxFit.cover,
             ),
 
             Positioned(
@@ -40,7 +44,7 @@ class FilmographyCard extends StatelessWidget {
                         style: TextStyle(color: cGrey, fontSize: 14),
                       ),
                       Text(
-                        "Fast & Furious 7",
+                        movie.originalTitle ?? "Movie Name",
                         style: TextStyle(color: cWhite, fontSize: 17),
                       ),
                     ],

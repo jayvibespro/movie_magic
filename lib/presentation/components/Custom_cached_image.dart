@@ -40,11 +40,12 @@ class CustomCachedImage extends StatelessWidget {
                 HeroIcon(
                   HeroIcons.informationCircle,
                   color: Colors.black,
-                  size: 30,
+                  size: 26,
                 ),
                 Text(
                   "Unable to load image",
-                  style: TextStyle(color: cGrey, fontSize: 14),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: cGrey, fontSize: 12),
                 ),
               ],
             ),

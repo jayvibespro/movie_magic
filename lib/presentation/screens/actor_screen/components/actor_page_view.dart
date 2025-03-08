@@ -1,13 +1,12 @@
+import 'package:daladala/core/models/profile_model/profile_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:heroicons/heroicons.dart';
 
 import '../../../../core/utils/constants/colors.dart';
-import '../../../components/custom_divider.dart';
-import '../../../components/double_material_button.dart';
+import '../../../../core/utils/constants/urls.dart';
+import '../../../components/Custom_cached_image.dart';
 
 class ActorPageView extends StatefulWidget {
-  final List<int> pages;
+  final List<ProfileModel> pages;
   const ActorPageView({super.key, required this.pages});
 
   @override
@@ -34,6 +33,7 @@ class _ActorPageViewState extends State<ActorPageView> {
   }
 
   void getPages() {
+    if (widget.pages.length == list.length) return;
     for (int i = 0; i < widget.pages.length; i++) {
       list.add(i);
     }
@@ -41,6 +41,7 @@ class _ActorPageViewState extends State<ActorPageView> {
 
   @override
   Widget build(BuildContext context) {
+    getPages();
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
@@ -66,10 +67,10 @@ class _ActorPageViewState extends State<ActorPageView> {
                     .map(
                       (item) => Stack(
                         children: [
-                          Image.asset(
-                            "assets/images/jason_statham.jpeg",
+                          CustomCachedImage(
+                            imageUrl: "$imageBaseUrl/${item.filePath ?? ""}",
                             width: MediaQuery.of(context).size.width,
-                            fit: BoxFit.cover,
+                            height: 360,
                           ),
                         ],
                       ),
