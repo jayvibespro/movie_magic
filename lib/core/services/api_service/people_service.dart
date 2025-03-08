@@ -27,4 +27,30 @@ mixin PeopleService implements BaseService {
       },
     );
   }
+
+  Future<ApiResponseModel<List<PeopleModel>?>> getActorMovies(
+    int peopleId,
+  ) async {
+    return await get<List<PeopleModel>>(
+      "$epPeopleDetails/$peopleId/movie_credits",
+      fromJson: (data) {
+        return (data['results'] as List<dynamic>)
+            .map((json) => PeopleModel.fromJson(json as Map<String, dynamic>))
+            .toList();
+      },
+    );
+  }
+
+  Future<ApiResponseModel<List<PeopleModel>?>> getActorImages(
+    int peopleId,
+  ) async {
+    return await get<List<PeopleModel>>(
+      "$epPeopleDetails/$peopleId/images",
+      fromJson: (data) {
+        return (data['results'] as List<dynamic>)
+            .map((json) => PeopleModel.fromJson(json as Map<String, dynamic>))
+            .toList();
+      },
+    );
+  }
 }

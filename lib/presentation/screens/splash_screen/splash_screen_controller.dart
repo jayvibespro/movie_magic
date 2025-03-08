@@ -41,6 +41,7 @@ class SplashScreenController {
 
   Future<void> checkLoggedInUser() async {
     await getGenres();
+
     if (true) {
       Get.to(
         () => SignInScreen(),
