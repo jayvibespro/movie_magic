@@ -1,4 +1,5 @@
 import 'package:daladala/core/utils/constants/colors.dart';
+import 'package:daladala/presentation/components/custom_loader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../home_screen/home_screen.dart';
@@ -24,6 +25,8 @@ class _SignInScreenState extends State<SignInScreen> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   final SignInScreenController _signInScreenController =
       getIt<SignInScreenController>();
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -34,6 +37,8 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   void dispose() {
     _formKey.currentState?.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
     super.dispose();
   }
 
@@ -72,6 +77,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                     const SizedBox(height: 100),
                     CustomTextField(
+                      focusNode: emailFocusNode,
                       label: "Email",
                       hintText: "abc@gmail.com",
                       name: "email",
@@ -82,6 +88,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ]),
                     ),
                     CustomTextField(
+                      focusNode: passwordFocusNode,
                       label: "Password",
                       hintText: "********",
                       name: "password",
@@ -92,24 +99,24 @@ class _SignInScreenState extends State<SignInScreen> {
                         FormBuilderValidators.minLength(6),
                       ]),
                     ),
-                    CustomMaterialButton(
-                      onPressed: () {
-                        /*   if (_formKey.currentState!.saveAndValidate()) {
-                          _signInScreenController.state.user = UserModel(
-                            email: _formKey.currentState?.value["email"].trim(),
-                            password:
-                                _formKey.currentState?.value["password"].trim(),
-                          );
-                          _signInScreenController.signIn();
-                        }*/
-                        Get.to(
-                          () => HomeScreen(),
-                          transition: Transition.circularReveal,
-                          duration: Duration(milliseconds: 1600),
-                        );
-                      },
-                      label: "Sign in",
-                    ),
+                    _signInScreenController.state.loading
+                        ? CustomLoader()
+                        : CustomMaterialButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.saveAndValidate()) {
+                              emailFocusNode.unfocus();
+                              passwordFocusNode.unfocus();
+                              _signInScreenController
+                                  .signInUserWithEmailAndPassword(
+                                    _formKey.currentState?.value["email"]
+                                        .trim(),
+                                    _formKey.currentState?.value["password"]
+                                        .trim(),
+                                  );
+                            }
+                          },
+                          label: "Sign in",
+                        ),
                     const SizedBox(height: 10),
                     TextButton(
                       onPressed: () async {
@@ -142,7 +149,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap:
+                          () => _signInScreenController.signInUserWithGoogle(),
                       borderRadius: BorderRadius.circular(50),
                       child: Hero(
                         tag: "G_LOGO",

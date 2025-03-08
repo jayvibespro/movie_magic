@@ -7,6 +7,7 @@ import '../../../core/models/movie_details_model/movie_details_model.dart';
 import '../../../core/services/data_service.dart';
 import '../../../core/state/app_state.dart';
 import '../../../core/utils/session_manager.dart';
+import '../home_screen/home_screen.dart';
 
 @injectable
 class SplashScreenController {
@@ -41,8 +42,15 @@ class SplashScreenController {
 
   Future<void> checkLoggedInUser() async {
     await getGenres();
+    ApiResponseModel<bool> apiResponse = await _dataService.checkLoggedInUser();
 
-    if (true) {
+    if (apiResponse.data == true) {
+      Get.offAll(
+        () => HomeScreen(),
+        transition: Transition.circularReveal,
+        duration: Duration(milliseconds: 1600),
+      );
+    } else {
       Get.to(
         () => SignInScreen(),
         transition: Transition.circularReveal,

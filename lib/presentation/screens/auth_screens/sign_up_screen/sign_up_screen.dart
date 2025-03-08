@@ -1,9 +1,10 @@
 import 'package:daladala/core/utils/constants/colors.dart';
+import 'package:daladala/presentation/components/custom_snack_bar.dart';
 import 'package:daladala/presentation/screens/home_screen/home_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:heroicons/heroicons.dart';
 
 import '../../../components/custom_back_button.dart';
+import '../../../components/custom_loader.dart';
 import 'sign_up_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -26,6 +27,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final SignUpScreenController _signUpScreenController =
       getIt<SignUpScreenController>();
 
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
+  FocusNode confirmPasswordFocusNode = FocusNode();
+
   @override
   void initState() {
     _signUpScreenController.initialize(setState, context);
@@ -35,6 +40,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void dispose() {
     _formKey.currentState?.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    confirmPasswordFocusNode.dispose();
     super.dispose();
   }
 
@@ -75,12 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                     const SizedBox(height: 40),
                     CustomTextField(
-                      label: "Full Name",
-                      hintText: "John Doe",
-                      name: "name",
-                      keyboardType: TextInputType.text,
-                    ),
-                    CustomTextField(
+                      focusNode: emailFocusNode,
                       label: "Email",
                       hintText: "abc@gmail.com",
                       name: "email",
@@ -91,6 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ]),
                     ),
                     CustomTextField(
+                      focusNode: passwordFocusNode,
                       label: "Password",
                       hintText: "********",
                       name: "password",
@@ -102,6 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ]),
                     ),
                     CustomTextField(
+                      focusNode: confirmPasswordFocusNode,
                       label: "Confirm Password",
                       hintText: "********",
                       name: "confirmPassword",
@@ -112,25 +117,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         FormBuilderValidators.minLength(6),
                       ]),
                     ),
-                    CustomMaterialButton(
-                      onPressed: () {
-                        /*   if (_formKey.currentState!.saveAndValidate()) {
-                          _signInScreenController.state.user = UserModel(
-                            email: _formKey.currentState?.value["email"].trim(),
-                            password:
-                                _formKey.currentState?.value["password"].trim(),
-                          );
-                          _signInScreenController.signIn();
-                        }*/
+                    _signUpScreenController.state.loading
+                        ? CustomLoader()
+                        : CustomMaterialButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.saveAndValidate()) {
+                              if (_formKey.currentState?.value["password"]
+                                      .trim() !=
+                                  _formKey
+                                      .currentState
+                                      ?.value["confirmPassword"]
+                                      .trim()) {
+                                customSnackBar("Password mismatch");
+                                return;
+                              }
 
-                        Get.to(
-                          () => HomeScreen(),
-                          transition: Transition.circularReveal,
-                          duration: Duration(milliseconds: 1600),
-                        );
-                      },
-                      label: "Sign up",
-                    ),
+                              emailFocusNode.unfocus();
+                              passwordFocusNode.unfocus();
+                              confirmPasswordFocusNode.unfocus();
+
+                              _signUpScreenController
+                                  .createUserWithEmailAndPassword(
+                                    _formKey.currentState?.value["email"]
+                                        .trim(),
+                                    _formKey.currentState?.value["password"]
+                                        .trim(),
+                                  );
+                            }
+                          },
+                          label: "Sign up",
+                        ),
 
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -146,7 +162,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap:
+                          () => _signUpScreenController.signInUserWithGoogle(),
                       borderRadius: BorderRadius.circular(50),
                       child: Hero(
                         tag: "G_LOGO",
