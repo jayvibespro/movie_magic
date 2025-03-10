@@ -1,9 +1,9 @@
-import 'package:daladala/core/models/api_response_model.dart';
-import 'package:daladala/presentation/components/custom_snack_bar.dart';
-import 'package:daladala/presentation/screens/auth_screens/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
+import 'package:movie_magic/core/models/api_response_model.dart';
+import 'package:movie_magic/presentation/components/custom_snack_bar.dart';
+import 'package:movie_magic/presentation/screens/auth_screens/auth_state.dart';
 
 import '../../../../core/services/data_service.dart';
 import '../../../../core/state/app_state.dart';

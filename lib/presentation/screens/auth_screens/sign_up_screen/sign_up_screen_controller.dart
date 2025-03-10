@@ -1,7 +1,7 @@
-import 'package:daladala/presentation/screens/auth_screens/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
+import 'package:movie_magic/presentation/screens/auth_screens/auth_state.dart';
 
 import '../../../../core/models/api_response_model.dart';
 import '../../../../core/services/data_service.dart';

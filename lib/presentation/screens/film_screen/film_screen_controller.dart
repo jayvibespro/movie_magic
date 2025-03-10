@@ -1,14 +1,13 @@
-import 'package:daladala/core/utils/check_connectivity.dart';
-import 'package:daladala/presentation/screens/film_screen/film_state.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:movie_magic/core/utils/check_connectivity.dart';
+import 'package:movie_magic/presentation/screens/film_screen/film_state.dart';
 
 import '../../../../core/services/data_service.dart';
-import '../../../../core/state/app_state.dart';
-import '../../../../core/utils/session_manager.dart';
 import '../../../core/models/api_response_model.dart';
 import '../../../core/models/movie_details_model/movie_details_model.dart';
 import '../../../core/services/database_service/database_service.dart';
+import '../../../core/state/app_state.dart';
 
 @injectable
 class FilmScreenController {
@@ -41,7 +40,7 @@ class FilmScreenController {
     state.loading = true;
     _update();
     await _databaseService.database;
-      state.message = null;
+    state.message = null;
 
     if (!await checkConnectivity()) {
       MovieDetailsModel? newMovie = await _databaseService.getMovieDetailsById(

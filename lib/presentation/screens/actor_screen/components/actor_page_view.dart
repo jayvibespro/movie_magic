@@ -1,5 +1,5 @@
-import 'package:daladala/core/models/profile_model/profile_model.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_magic/core/models/profile_model/profile_model.dart';
 
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/urls.dart';
@@ -7,6 +7,7 @@ import '../../../components/Custom_cached_image.dart';
 
 class ActorPageView extends StatefulWidget {
   final List<ProfileModel> pages;
+
   const ActorPageView({super.key, required this.pages});
 
   @override

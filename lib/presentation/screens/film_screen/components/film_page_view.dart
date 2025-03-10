@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:daladala/core/models/movie_details_model/movie_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:heroicons/heroicons.dart';
-import 'package:shimmer/shimmer.dart';
 
+import '../../../../core/models/movie_details_model/movie_details_model.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/urls.dart';
 import '../../../components/Custom_cached_image.dart';
@@ -13,6 +11,7 @@ import '../../../components/double_material_button.dart';
 
 class FilmPageView extends StatefulWidget {
   final MovieDetailsModel movie;
+
   const FilmPageView({super.key, required this.movie});
 
   @override

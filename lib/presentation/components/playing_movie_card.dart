@@ -1,6 +1,7 @@
-import 'package:daladala/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:heroicons/heroicons.dart';
+
+import '../../core/utils/constants/colors.dart';
 
 class PlayingMovieCard extends StatelessWidget {
   const PlayingMovieCard({super.key});

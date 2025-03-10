@@ -1,6 +1,7 @@
-import 'package:daladala/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../core/utils/constants/colors.dart';
 
 SnackbarController customSnackBar(String message) {
   return Get.snackbar(

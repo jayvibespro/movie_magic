@@ -1,9 +1,8 @@
-import 'package:daladala/core/models/movie_model/movie_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:movie_magic/core/models/movie_model/movie_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'entities/movie_entity.dart';
-import 'entities/profile_entity.dart';
 
 class MovieTableService {
   final Database _database;

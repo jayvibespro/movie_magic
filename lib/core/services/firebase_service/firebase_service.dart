@@ -1,6 +1,6 @@
-import 'package:daladala/core/models/api_response_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:movie_magic/core/models/api_response_model.dart';
 
 /// This is a Service Class to handle all requests to Firebase. ie FirebaseAuth and Firestore Database.
 mixin FirebaseService {

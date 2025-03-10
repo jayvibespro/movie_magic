@@ -1,21 +1,16 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:daladala/core/models/people_model/people_model.dart';
-import 'package:daladala/presentation/components/Custom_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:heroicons/heroicons.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:movie_magic/core/models/people_model/people_model.dart';
+import 'package:movie_magic/presentation/components/Custom_cached_image.dart';
 
 import '../../core/utils/constants/colors.dart';
 import '../../core/utils/constants/urls.dart';
-import '../screens/actor_screen/actor_screen.dart';
 
 class ActorCard extends StatelessWidget {
   final bool isActor;
   final PeopleModel actor;
   final VoidCallback onTap;
-
+ 
   const ActorCard({
     super.key,
     this.isActor = true,
@@ -62,15 +57,15 @@ class ActorCard extends StatelessWidget {
               SizedBox(height: 8),
               isActor
                   ? Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset("assets/svg/star.svg", width: 18),
-                      Text(
-                        " ${_getRateAverage().toStringAsFixed(1)}",
-                        style: TextStyle(color: cGrey, fontSize: 16),
-                      ),
-                    ],
-                  )
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset("assets/svg/star.svg", width: 18),
+                  Text(
+                    " ${_getRateAverage().toStringAsFixed(1)}",
+                    style: TextStyle(color: cGrey, fontSize: 16),
+                  ),
+                ],
+              )
                   : Text("Actor", style: TextStyle(color: cGrey)),
               SizedBox(height: 5),
               Text(

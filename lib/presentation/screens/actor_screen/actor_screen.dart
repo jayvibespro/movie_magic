@@ -1,19 +1,14 @@
-import 'package:daladala/core/utils/constants/colors.dart';
-import 'package:daladala/presentation/components/actor_card.dart';
-import 'package:daladala/presentation/components/custom_loader.dart';
-import 'package:daladala/presentation/components/dot.dart';
-import 'package:daladala/presentation/components/section_title.dart';
-import 'package:heroicons/heroicons.dart';
-import '../../components/custom_back_button.dart';
-import '../../components/custom_icon_button.dart';
-import '../../components/filmography_card.dart';
-import '../../components/like_dislike_button.dart';
-import '../../components/review_container.dart';
-import 'components/actor_page_view.dart';
-import 'actor_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:movie_magic/core/utils/constants/colors.dart';
+import 'package:movie_magic/presentation/components/custom_loader.dart';
+import 'package:movie_magic/presentation/components/section_title.dart';
+
 import '../../../../../core/di/di.dart';
+import '../../components/custom_back_button.dart';
+import '../../components/filmography_card.dart';
+import 'actor_screen_controller.dart';
+import 'components/actor_page_view.dart';
 
 class ActorScreen extends StatefulWidget {
   const ActorScreen({super.key});

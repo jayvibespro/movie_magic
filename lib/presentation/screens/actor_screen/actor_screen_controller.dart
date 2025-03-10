@@ -1,9 +1,9 @@
-import 'package:daladala/core/models/movie_model/movie_model.dart';
-import 'package:daladala/core/models/profile_model/profile_model.dart';
-import 'package:daladala/presentation/screens/actor_screen/actor_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:movie_magic/core/models/movie_model/movie_model.dart';
+import 'package:movie_magic/core/models/profile_model/profile_model.dart';
+import 'package:movie_magic/presentation/screens/actor_screen/actor_state.dart';
 
 import '../../../../core/services/data_service.dart';
 import '../../../../core/state/app_state.dart';

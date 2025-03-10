@@ -1,10 +1,11 @@
-import 'package:daladala/core/utils/constants/colors.dart';
-import 'package:daladala/presentation/components/dot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:movie_magic/core/utils/constants/colors.dart';
+import 'package:movie_magic/presentation/components/dot.dart';
 
 class ReviewContainer extends StatelessWidget {
   final String review;
+
   const ReviewContainer({super.key, required this.review});
 
   @override

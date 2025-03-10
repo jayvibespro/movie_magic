@@ -1,5 +1,6 @@
-import 'package:daladala/core/services/database_service/entities/profile_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../services/database_service/entities/profile_entity.dart';
 
 part 'profile_model.g.dart';
 

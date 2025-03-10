@@ -1,8 +1,5 @@
-import 'package:daladala/core/services/database_service/entities/genre_entity.dart';
-import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../models/movie_details_model/movie_details_model.dart';
 import 'entities/movie_actor_entity.dart';
 
 /// For Many to Many Relationship between Movie and Actor

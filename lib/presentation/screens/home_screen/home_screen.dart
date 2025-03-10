@@ -1,24 +1,18 @@
-import 'package:daladala/core/utils/constants/colors.dart';
-import 'package:daladala/presentation/components/actor_card.dart';
-import 'package:daladala/presentation/components/custom_loader.dart';
-import 'package:daladala/presentation/components/custom_material_button.dart';
-import 'package:daladala/presentation/components/custom_page_view.dart';
-import 'package:daladala/presentation/components/section_title.dart';
-import 'package:daladala/presentation/components/trending_movie_card.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:heroicons/heroicons.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:movie_magic/core/utils/constants/colors.dart';
+import 'package:movie_magic/presentation/components/actor_card.dart';
+import 'package:movie_magic/presentation/components/custom_loader.dart';
+import 'package:movie_magic/presentation/components/custom_page_view.dart';
+import 'package:movie_magic/presentation/components/section_title.dart';
 
-import '../../components/custom_divider.dart';
+import '../../../../../core/di/di.dart';
 import '../../components/playing_movie_card.dart';
+import '../../components/trending_movie_card.dart';
 import '../actor_screen/actor_screen.dart';
 import '../film_screen/film_screen.dart';
 import 'home_screen_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:get/get.dart';
-import 'package:flutter/services.dart';
-import '../../../../../core/di/di.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -1,18 +1,17 @@
-import 'package:daladala/core/utils/constants/colors.dart';
-import 'package:daladala/presentation/components/custom_loader.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../home_screen/home_screen.dart';
-import '../sign_up_screen/sign_up_screen.dart';
-import 'sign_in_screen_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
-import 'package:flutter/services.dart';
+import 'package:movie_magic/core/utils/constants/colors.dart';
+import 'package:movie_magic/presentation/components/custom_loader.dart';
+
 import '../../../../../core/di/di.dart';
 import '../../../components/custom_material_button.dart';
 import '../../../components/custom_text_field.dart';
+import '../sign_up_screen/sign_up_screen.dart';
+import 'sign_in_screen_controller.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

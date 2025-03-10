@@ -1,14 +1,15 @@
-import 'package:daladala/core/services/database_service/database_service.dart';
-import 'package:daladala/presentation/screens/auth_screens/sign_in_screen/sign_in_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../../core/models/api_response_model.dart';
 import '../../../core/models/movie_details_model/movie_details_model.dart';
 import '../../../core/services/data_service.dart';
+import '../../../core/services/database_service/database_service.dart';
 import '../../../core/state/app_state.dart';
 import '../../../core/utils/check_connectivity.dart';
+import '../auth_screens/sign_in_screen/sign_in_screen.dart';
 import '../home_screen/home_screen.dart';
 
 @injectable

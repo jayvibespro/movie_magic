@@ -1,8 +1,8 @@
-import 'package:daladala/core/utils/constants/colors.dart';
-import 'package:daladala/presentation/components/custom_divider.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:heroicons/heroicons.dart';
+import 'package:movie_magic/core/utils/constants/colors.dart';
+
+import 'custom_divider.dart';
 
 class LikeDislikeButton extends StatelessWidget {
   const LikeDislikeButton({

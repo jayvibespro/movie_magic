@@ -1,7 +1,7 @@
-import 'package:daladala/core/models/movie_model/movie_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../services/database_service/entities/people_entity.dart';
+import '../movie_model/movie_model.dart';
 
 part 'people_model.g.dart';
 

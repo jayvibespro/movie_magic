@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:daladala/core/utils/constants/keys.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_magic/core/utils/constants/keys.dart';
 
 import '../models/api_response_model.dart';
 import '../utils/constants/urls.dart';

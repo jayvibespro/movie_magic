@@ -1,10 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:heroicons/heroicons.dart';
-import 'package:shimmer/shimmer.dart';
 
-import '../../core/utils/constants/colors.dart';
-import '../../core/utils/custom_cache_manager.dart';
+import 'custom_image_cache_widget.dart';
 
 class CustomCachedImage extends StatelessWidget {
   final String imageUrl;
@@ -20,11 +16,12 @@ class CustomCachedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
+    /*CachedNetworkImage(
       imageUrl: imageUrl,
       width: width,
       height: height,
       cacheManager: CustomCacheManager.instance,
+      useOldImageOnUrlChange: true,
       placeholder:
           (context, url) => Shimmer.fromColors(
             baseColor: Colors.grey[700]!,
@@ -51,6 +48,11 @@ class CustomCachedImage extends StatelessWidget {
             ),
           ),
       fit: BoxFit.cover,
+    );*/
+    return CustomImageCacheWidget(
+      imageUrl: imageUrl,
+      width: width,
+      height: height,
     );
   }
 }

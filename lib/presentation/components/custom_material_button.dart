@@ -1,6 +1,6 @@
-import 'package:daladala/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movie_magic/core/utils/constants/colors.dart';
 
 class CustomMaterialButton extends StatelessWidget {
   const CustomMaterialButton({

@@ -1,13 +1,13 @@
-import 'package:daladala/core/models/movie_model/movie_model.dart';
-import 'package:daladala/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:heroicons/heroicons.dart';
+import 'package:movie_magic/core/models/movie_model/movie_model.dart';
 
+import '../../core/utils/constants/colors.dart';
 import '../../core/utils/constants/urls.dart';
 import 'Custom_cached_image.dart';
 
 class FilmographyCard extends StatelessWidget {
   final MovieModel movie;
+
   const FilmographyCard({super.key, required this.movie});
 
   @override

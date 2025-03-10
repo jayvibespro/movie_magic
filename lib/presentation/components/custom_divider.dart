@@ -1,5 +1,6 @@
-import 'package:daladala/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/utils/constants/colors.dart';
 
 class CustomDivider extends StatelessWidget {
   final double height;

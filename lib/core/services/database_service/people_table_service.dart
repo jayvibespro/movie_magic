@@ -1,7 +1,8 @@
-import 'package:daladala/core/models/people_model/people_model.dart';
-import 'package:daladala/core/services/database_service/entities/people_entity.dart';
 import 'package:flutter/foundation.dart';
+import 'package:movie_magic/core/models/people_model/people_model.dart';
 import 'package:sqflite/sqflite.dart';
+
+import 'entities/people_entity.dart';
 
 class PeopleTableService {
   final Database _database;

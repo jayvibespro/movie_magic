@@ -1,7 +1,7 @@
-import 'package:daladala/core/models/profile_model/profile_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../models/profile_model/profile_model.dart';
 import 'entities/profile_entity.dart';
 
 class ProfileTableService {

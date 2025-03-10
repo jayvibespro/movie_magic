@@ -1,10 +1,10 @@
-import 'package:daladala/core/models/movie_details_model/movie_details_model.dart';
-import 'package:daladala/core/models/people_model/people_model.dart';
-import 'package:daladala/core/services/database_service/genre_table_service.dart';
-import 'package:daladala/core/services/database_service/people_table_service.dart';
-import 'package:daladala/core/services/database_service/profile_table_service.dart';
-import 'package:daladala/core/services/database_service/movie_details_table_service.dart';
 import 'package:injectable/injectable.dart';
+import 'package:movie_magic/core/models/movie_details_model/movie_details_model.dart';
+import 'package:movie_magic/core/models/people_model/people_model.dart';
+import 'package:movie_magic/core/services/database_service/genre_table_service.dart';
+import 'package:movie_magic/core/services/database_service/movie_details_table_service.dart';
+import 'package:movie_magic/core/services/database_service/people_table_service.dart';
+import 'package:movie_magic/core/services/database_service/profile_table_service.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

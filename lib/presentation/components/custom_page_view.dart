@@ -1,18 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:daladala/core/models/movie_model/movie_model.dart';
-import 'package:daladala/core/utils/constants/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:heroicons/heroicons.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:movie_magic/core/models/movie_model/movie_model.dart';
 
 import '../../core/utils/constants/colors.dart';
+import '../../core/utils/constants/urls.dart';
 import 'Custom_cached_image.dart';
 import 'custom_divider.dart';
 import 'custom_material_button.dart';
 
 class CustomPageView extends StatefulWidget {
   final List<MovieModel> movies;
+
   const CustomPageView({super.key, required this.movies});
 
   @override

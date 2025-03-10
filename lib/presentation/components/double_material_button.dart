@@ -1,7 +1,7 @@
-import 'package:daladala/core/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:heroicons/heroicons.dart';
+
+import '../../core/utils/constants/colors.dart';
 
 class DoubleMaterialButton extends StatelessWidget {
   const DoubleMaterialButton({

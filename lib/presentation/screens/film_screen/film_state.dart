@@ -1,5 +1,6 @@
-import 'package:daladala/core/models/movie_details_model/movie_details_model.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../core/models/movie_details_model/movie_details_model.dart';
 
 @singleton
 class FilmState {
