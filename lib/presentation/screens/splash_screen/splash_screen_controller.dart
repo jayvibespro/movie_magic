@@ -1,4 +1,6 @@
+import 'package:daladala/core/services/database_service/database_service.dart';
 import 'package:daladala/presentation/screens/auth_screens/sign_in_screen/sign_in_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
@@ -6,7 +8,7 @@ import '../../../core/models/api_response_model.dart';
 import '../../../core/models/movie_details_model/movie_details_model.dart';
 import '../../../core/services/data_service.dart';
 import '../../../core/state/app_state.dart';
-import '../../../core/utils/session_manager.dart';
+import '../../../core/utils/check_connectivity.dart';
 import '../home_screen/home_screen.dart';
 
 @injectable
@@ -16,12 +18,12 @@ class SplashScreenController {
 
   final AppState appState;
   late final DataService _dataService;
-  late final SessionManager _sessionManager;
+  late final DatabaseService _databaseService;
 
   SplashScreenController(
     this.appState,
     this._dataService,
-    this._sessionManager,
+    this._databaseService,
   );
 
   void initialize(
@@ -34,9 +36,19 @@ class SplashScreenController {
   }
 
   Future<void> getGenres() async {
-    ApiResponseModel<List<Genre>?> apiResponse = await _dataService.getGenres();
-    if (apiResponse.success) {
-      appState.genres = apiResponse.data!;
+    await _databaseService.database;
+    if (!await checkConnectivity()) {
+      appState.genres = await _databaseService.getGenres();
+      if (kDebugMode) {
+        print("GENRES: ${appState.genres.length}");
+      }
+    } else {
+      ApiResponseModel<List<GenreModel>?> apiResponse =
+          await _dataService.getGenres();
+      if (apiResponse.success) {
+        appState.genres = apiResponse.data!;
+        await _databaseService.insertGenres(appState.genres);
+      }
     }
   }
 

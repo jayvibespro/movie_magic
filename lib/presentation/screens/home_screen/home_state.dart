@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 @singleton
 class HomeState {
   bool loading = false;
+  bool isConnected = true;
   String? message;
   List<MovieModel> trendingMovies = [];
   List<MovieModel> latestMovies = [];

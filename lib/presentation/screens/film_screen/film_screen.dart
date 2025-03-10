@@ -1,6 +1,7 @@
 import 'package:daladala/core/utils/constants/colors.dart';
 import 'package:daladala/core/utils/string_utils.dart';
 import 'package:daladala/presentation/components/actor_card.dart';
+import 'package:daladala/presentation/components/custom_material_button.dart';
 import 'package:daladala/presentation/components/dot.dart';
 import 'package:daladala/presentation/components/section_title.dart';
 import 'package:heroicons/heroicons.dart';
@@ -53,7 +54,8 @@ class _FilmScreenState extends State<FilmScreen> {
           children: [
             _filmScreenController.state.loading
                 ? CustomLoader()
-                : ListView(
+                : _filmScreenController.state.message == null
+                ? ListView(
                   padding: EdgeInsets.all(0),
                   children: [
                     FilmPageView(movie: _filmScreenController.state.movie),
@@ -251,6 +253,29 @@ class _FilmScreenState extends State<FilmScreen> {
                     ),
                     SizedBox(height: 60),
                   ],
+                )
+                : Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      HeroIcon(
+                        HeroIcons.informationCircle,
+                        color: cWhiteWithOpacity,
+                        size: 45,
+                      ),
+                      Text(
+                        _filmScreenController.state.message!,
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 20),
+                      CustomMaterialButton(
+                        onPressed: () => _filmScreenController.getMovie(),
+                        label: "Retry",
+                      ),
+                    ],
+                  ),
                 ),
             Positioned(top: 50, left: 20, child: CustomBackButton()),
           ],

@@ -39,7 +39,7 @@ class _CustomPageViewState extends State<CustomPageView> {
   }
 
   void getPages() {
-    if (widget.movies.length == list.length) return;
+    if (widget.movies.length <= list.length) return;
     for (int i = 0; i < widget.movies.length; i++) {
       list.add(i);
     }

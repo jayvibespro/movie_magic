@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../services/database_service/entities/movie_entity.dart';
 import '../movie_details_model/movie_details_model.dart';
 
 part 'movie_model.g.dart';
@@ -45,7 +46,7 @@ class MovieModel {
   @JsonKey(name: 'vote_count')
   final int? voteCount;
 
-  List<Genre>? genres;
+  List<GenreModel>? genres;
 
   MovieModel({
     required this.backdropPath,
@@ -72,4 +73,25 @@ class MovieModel {
 
   // To JSON
   Map<String, dynamic> toJson() => _$MovieModelToJson(this);
+
+  /// Convert MovieModel to MovieEntity
+  MovieEntity toEntity() {
+    return MovieEntity(
+      id: id,
+      backdropPath: backdropPath,
+      title: title,
+      originalTitle: originalTitle,
+      overview: overview,
+      posterPath: posterPath,
+      mediaType: mediaType,
+      adult: adult,
+      originalLanguage: originalLanguage,
+      genreIds: genreIds,
+      popularity: popularity,
+      releaseDate: releaseDate,
+      video: video,
+      voteAverage: voteAverage,
+      voteCount: voteCount,
+    );
+  }
 }

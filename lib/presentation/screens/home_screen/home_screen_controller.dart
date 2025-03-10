@@ -1,14 +1,16 @@
 import 'package:daladala/core/models/api_response_model.dart';
 import 'package:daladala/core/models/movie_model/movie_model.dart';
 import 'package:daladala/core/models/people_model/people_model.dart';
+import 'package:daladala/core/utils/check_connectivity.dart';
 import 'package:daladala/presentation/screens/home_screen/home_state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/services/data_service.dart';
 import '../../../../core/state/app_state.dart';
-import '../../../../core/utils/session_manager.dart';
 import '../../../core/models/movie_details_model/movie_details_model.dart';
+import '../../../core/services/database_service/database_service.dart';
 
 @injectable
 class HomeScreenController {
@@ -17,14 +19,14 @@ class HomeScreenController {
 
   final AppState appState;
   late final DataService _dataService;
-  late final SessionManager _sessionManager;
+  late final DatabaseService _databaseService;
   late final HomeState state;
 
   HomeScreenController(
     this.state,
     this.appState,
     this._dataService,
-    this._sessionManager,
+    this._databaseService,
   );
 
   void initialize(
@@ -45,6 +47,9 @@ class HomeScreenController {
     }
     _update();
 
+    state.isConnected = await checkConnectivity();
+    await _databaseService.database;
+
     final futures = [
       getDiscoverMovies(),
       getTrendingMovies(),
@@ -59,46 +64,80 @@ class HomeScreenController {
   }
 
   Future<void> getTrendingMovies() async {
-    ApiResponseModel<List<MovieModel>?> apiResponse =
-        await _dataService.getTrendingMovies();
-    if (apiResponse.success) {
-      state.trendingMovies = apiResponse.data!;
-    }
-  }
-
-  Future<void> getLatestMovies() async {
-    ApiResponseModel<List<MovieModel>?> apiResponse =
-        await _dataService.getLatestMovies();
-    if (apiResponse.success) {
-      state.latestMovies = apiResponse.data!;
-    }
-  }
-
-  Future<void> getDiscoverMovies() async {
-    ApiResponseModel<List<MovieModel>?> apiResponse =
-        await _dataService.getDiscoverMovies();
-    if (apiResponse.success) {
-      state.discoverMovies = apiResponse.data!;
-
-      for (var movie in state.discoverMovies) {
-        List<Genre> genres = [];
-
-        for (var genre in appState.genres) {
-          if (movie.genreIds.contains(genre.id)) {
-            genres.add(genre);
-          }
-        }
-
-        movie.genres = genres;
+    if (!state.isConnected) {
+      state.trendingMovies = await _databaseService.getMovies('trending');
+      if (kDebugMode) {
+        print("TRENDING MOVIES: ${state.trendingMovies.length}");
+      }
+    } else {
+      ApiResponseModel<List<MovieModel>?> apiResponse =
+          await _dataService.getTrendingMovies();
+      if (apiResponse.success) {
+        state.trendingMovies = apiResponse.data!;
+        await Future.delayed(Duration(seconds: 2));
+        _databaseService.insertMovies(state.trendingMovies, 'trending');
       }
     }
   }
 
+  Future<void> getLatestMovies() async {
+    if (!state.isConnected) {
+      state.latestMovies = await _databaseService.getMovies('latest');
+      if (kDebugMode) {
+        print("LATEST MOVIES: ${state.latestMovies.length}");
+      }
+    } else {
+      ApiResponseModel<List<MovieModel>?> apiResponse =
+          await _dataService.getLatestMovies();
+      if (apiResponse.success) {
+        state.latestMovies = apiResponse.data!;
+        await Future.delayed(Duration(seconds: 4));
+        _databaseService.insertMovies(state.latestMovies, 'latest');
+      }
+    }
+  }
+
+  Future<void> getDiscoverMovies() async {
+    if (!state.isConnected) {
+      state.discoverMovies = await _databaseService.getMovies('discover');
+      if (kDebugMode) {
+        print("DISCOVERED MOVIES: ${state.discoverMovies.length}");
+      }
+    } else {
+      ApiResponseModel<List<MovieModel>?> apiResponse =
+          await _dataService.getDiscoverMovies();
+      if (apiResponse.success) {
+        state.discoverMovies = apiResponse.data!;
+
+        for (var movie in state.discoverMovies) {
+          List<GenreModel> genres = [];
+
+          for (var genre in appState.genres) {
+            if (movie.genreIds.contains(genre.id)) {
+              genres.add(genre);
+            }
+          }
+
+          movie.genres = genres;
+        }
+      }
+      _databaseService.insertMovies(state.discoverMovies, 'discover');
+    }
+  }
+
   Future<void> getPopularPeople() async {
-    ApiResponseModel<List<PeopleModel>?> apiResponse =
-        await _dataService.getPopularPeople();
-    if (apiResponse.success) {
-      state.popularPeople = apiResponse.data!;
+    if (!state.isConnected) {
+      state.popularPeople = await _databaseService.getPeople();
+      if (kDebugMode) {
+        print("PEOPLE: ${state.popularPeople.length}");
+      }
+    } else {
+      ApiResponseModel<List<PeopleModel>?> apiResponse =
+          await _dataService.getPopularPeople();
+      if (apiResponse.success) {
+        state.popularPeople = apiResponse.data!;
+        _databaseService.insertPeople(state.popularPeople);
+      }
     }
   }
 

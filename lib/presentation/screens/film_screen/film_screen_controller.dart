@@ -1,5 +1,5 @@
+import 'package:daladala/core/utils/check_connectivity.dart';
 import 'package:daladala/presentation/screens/film_screen/film_state.dart';
-import 'package:daladala/presentation/screens/home_screen/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -8,6 +8,7 @@ import '../../../../core/state/app_state.dart';
 import '../../../../core/utils/session_manager.dart';
 import '../../../core/models/api_response_model.dart';
 import '../../../core/models/movie_details_model/movie_details_model.dart';
+import '../../../core/services/database_service/database_service.dart';
 
 @injectable
 class FilmScreenController {
@@ -16,14 +17,14 @@ class FilmScreenController {
 
   final AppState appState;
   late final DataService _dataService;
-  late final SessionManager _sessionManager;
+  late final DatabaseService _databaseService;
   late final FilmState state;
 
   FilmScreenController(
     this.state,
     this.appState,
     this._dataService,
-    this._sessionManager,
+    this._databaseService,
   );
 
   void initialize(
@@ -39,10 +40,25 @@ class FilmScreenController {
   Future<void> getMovie() async {
     state.loading = true;
     _update();
-    ApiResponseModel<MovieDetailsModel?> apiResponse = await _dataService
-        .getMovie(appState.selectedMovie.id);
-    if (apiResponse.success) {
-      state.movie = apiResponse.data!;
+    await _databaseService.database;
+      state.message = null;
+
+    if (!await checkConnectivity()) {
+      MovieDetailsModel? newMovie = await _databaseService.getMovieDetailsById(
+        appState.selectedMovie.id,
+      );
+      if (newMovie == null) {
+        state.message =
+            "Movie Details not found.\nPlease connect to the internet and try again.";
+      } else {
+        state.movie = newMovie;
+      }
+    } else {
+      ApiResponseModel<MovieDetailsModel?> apiResponse = await _dataService
+          .getMovie(appState.selectedMovie.id);
+      if (apiResponse.success) {
+        state.movie = apiResponse.data!;
+      }
     }
     state.loading = false;
     _update();

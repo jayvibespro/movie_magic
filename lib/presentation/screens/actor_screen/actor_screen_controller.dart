@@ -1,14 +1,16 @@
 import 'package:daladala/core/models/movie_model/movie_model.dart';
 import 'package:daladala/core/models/profile_model/profile_model.dart';
 import 'package:daladala/presentation/screens/actor_screen/actor_state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/services/data_service.dart';
 import '../../../../core/state/app_state.dart';
-import '../../../../core/utils/session_manager.dart';
 import '../../../core/models/api_response_model.dart';
 import '../../../core/models/people_model/people_model.dart';
+import '../../../core/services/database_service/database_service.dart';
+import '../../../core/utils/check_connectivity.dart';
 
 @injectable
 class ActorScreenController {
@@ -17,14 +19,14 @@ class ActorScreenController {
 
   final AppState appState;
   late final DataService _dataService;
-  late final SessionManager _sessionManager;
+  late final DatabaseService _databaseService;
   late final ActorState state;
 
   ActorScreenController(
     this.state,
     this.appState,
     this._dataService,
-    this._sessionManager,
+    this._databaseService,
   );
 
   void initialize(
@@ -37,32 +39,69 @@ class ActorScreenController {
   }
 
   Future<void> getActor() async {
-    ApiResponseModel<PeopleModel?> apiResponse = await _dataService
-        .getPeopleDetails(appState.selectedPeople.id);
-    if (apiResponse.success) {
-      state.actor = apiResponse.data!;
+    if (!state.isConnected) {
+      state.actor = appState.selectedPeople;
+    } else {
+      ApiResponseModel<PeopleModel?> apiResponse = await _dataService
+          .getPeopleDetails(appState.selectedPeople.id);
+      if (apiResponse.success) {
+        state.actor = apiResponse.data!;
+      }
     }
   }
 
   Future<void> getActorMovies() async {
-    ApiResponseModel<List<MovieModel>?> apiResponse = await _dataService
-        .getActorMovies(appState.selectedPeople.id);
-    if (apiResponse.success) {
-      state.knownFor = apiResponse.data!;
+    if (!state.isConnected) {
+      state.knownFor = await _databaseService.getMoviesByActor(
+        appState.selectedPeople.id,
+      );
+      if (kDebugMode) {
+        print("ACTOR MOVIES: ${state.knownFor.length}");
+      }
+    } else {
+      ApiResponseModel<List<MovieModel>?> apiResponse = await _dataService
+          .getActorMovies(appState.selectedPeople.id);
+      if (apiResponse.success) {
+        state.knownFor = apiResponse.data!;
+        await _databaseService.insertMovies(state.knownFor, "actors_movies");
+        for (var movie in state.knownFor) {
+          await _databaseService.insertMovieActor(
+            movie.id,
+            appState.selectedPeople.id,
+          );
+        }
+      }
     }
   }
 
   Future<void> getActorImages() async {
-    ApiResponseModel<List<ProfileModel>?> apiResponse = await _dataService
-        .getActorImages(appState.selectedPeople.id);
-    if (apiResponse.success) {
-      state.profiles = apiResponse.data!;
+    if (!state.isConnected) {
+      state.profiles = await _databaseService.getProfiles(
+        appState.selectedPeople.id,
+      );
+      if (kDebugMode) {
+        print("ACTOR PROFILES: ${state.knownFor.length}");
+      }
+    } else {
+      ApiResponseModel<List<ProfileModel>?> apiResponse = await _dataService
+          .getActorImages(appState.selectedPeople.id);
+      if (apiResponse.success) {
+        state.profiles = apiResponse.data!;
+        await Future.delayed(Duration(seconds: 2));
+        _databaseService.insertProfiles(
+          state.profiles,
+          appState.selectedPeople.id,
+        );
+      }
     }
   }
 
   Future<void> getData() async {
     state.loading = true;
     _update();
+
+    state.isConnected = await checkConnectivity();
+    await _databaseService.database;
 
     final futures = [getActor(), getActorMovies(), getActorImages()];
 

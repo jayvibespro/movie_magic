@@ -45,7 +45,10 @@ class FilmographyCard extends StatelessWidget {
                       ),
                       Text(
                         movie.originalTitle ?? "Movie Name",
-                        style: TextStyle(color: cWhite, fontSize: 17),
+                        style: TextStyle(
+                          color: cWhiteWithOpacity,
+                          fontSize: 17,
+                        ),
                       ),
                     ],
                   ),

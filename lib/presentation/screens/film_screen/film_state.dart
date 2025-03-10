@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 @singleton
 class FilmState {
   bool loading = false;
+  bool isConnected = true;
   String? message;
   late MovieDetailsModel movie;
 }

@@ -1,6 +1,8 @@
 import 'package:daladala/core/models/movie_model/movie_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../services/database_service/entities/people_entity.dart';
+
 part 'people_model.g.dart';
 
 @JsonSerializable()
@@ -23,7 +25,7 @@ class PeopleModel {
   @JsonKey(name: "place_of_birth")
   final String? placeOfBirth;
   @JsonKey(name: "known_for")
-  final List<MovieModel>? knownFor;
+  List<MovieModel>? knownFor;
 
   PeopleModel({
     this.adult = false,
@@ -47,4 +49,22 @@ class PeopleModel {
 
   // Method to convert PeopleModel to JSON
   Map<String, dynamic> toJson() => _$PeopleModelToJson(this);
+
+  /// Convert `PeopleModel` to `PeopleEntity`
+  PeopleEntity toEntity() {
+    return PeopleEntity(
+      id: id,
+      adult: adult ? 1 : 0,
+      name: name,
+      gender: gender,
+      knownForDepartment: knownForDepartment,
+      alsoKnownAs: (alsoKnownAs ?? []).join(","),
+      originalName: originalName,
+      biography: biography,
+      birthday: birthday,
+      placeOfBirth: placeOfBirth,
+      popularity: popularity,
+      profilePath: profilePath,
+    );
+  }
 }

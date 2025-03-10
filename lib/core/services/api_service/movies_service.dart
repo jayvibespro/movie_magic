@@ -51,12 +51,12 @@ mixin MoviesService implements BaseService {
     );
   }
 
-  Future<ApiResponseModel<List<Genre>?>> getGenres() async {
-    return await get<List<Genre>>(
+  Future<ApiResponseModel<List<GenreModel>?>> getGenres() async {
+    return await get<List<GenreModel>>(
       epGenres,
       fromJson: (data) {
         return (data['genres'] as List<dynamic>)
-            .map((json) => Genre.fromJson(json as Map<String, dynamic>))
+            .map((json) => GenreModel.fromJson(json as Map<String, dynamic>))
             .toList();
       },
     );

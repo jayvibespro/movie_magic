@@ -66,7 +66,7 @@ class TrendingMovieCard extends StatelessWidget {
                     child: Text(
                       movie.title ?? "Movie Title",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: cGrey, fontSize: 14),
+                      style: TextStyle(color: cWhiteWithOpacity, fontSize: 14),
                     ),
                   ),
                 ),

@@ -1,3 +1,4 @@
+import 'package:daladala/core/services/database_service/entities/profile_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'profile_model.g.dart';
@@ -39,4 +40,17 @@ class ProfileModel {
 
   // Method to generate JSON from the model
   Map<String, dynamic> toJson() => _$ProfileModelToJson(this);
+
+  /// Convert `ProfileModel` to `ProfileEntity`
+  ProfileEntity toEntity() {
+    return ProfileEntity(
+      filePath: filePath,
+      aspectRatio: aspectRatio,
+      height: height,
+      iso6391: iso6391,
+      voteAverage: voteAverage,
+      voteCount: voteCount,
+      width: width,
+    );
+  }
 }

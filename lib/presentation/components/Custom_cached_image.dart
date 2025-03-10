@@ -27,13 +27,13 @@ class CustomCachedImage extends StatelessWidget {
       cacheManager: CustomCacheManager.instance,
       placeholder:
           (context, url) => Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
+            baseColor: Colors.grey[700]!,
+            highlightColor: Colors.grey[500]!,
             child: Container(width: width, height: height, color: Colors.white),
           ),
       errorWidget:
           (context, url, error) => Container(
-            color: Colors.grey.shade300,
+            color: Colors.grey.shade700,
             child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

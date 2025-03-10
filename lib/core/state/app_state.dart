@@ -9,5 +9,5 @@ import '../models/movie_details_model/movie_details_model.dart';
 class AppState {
   late MovieModel selectedMovie;
   late PeopleModel selectedPeople;
-  List<Genre> genres = [];
+  List<GenreModel> genres = [];
 }

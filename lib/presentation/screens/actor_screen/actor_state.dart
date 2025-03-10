@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 @singleton
 class ActorState {
   bool loading = false;
+  bool isConnected = true;
   String? message;
   late PeopleModel actor;
   List<ProfileModel> profiles = [];

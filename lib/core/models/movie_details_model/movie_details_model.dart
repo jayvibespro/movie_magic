@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../services/database_service/entities/genre_entity.dart';
+
 part 'movie_details_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -10,7 +12,7 @@ class MovieDetailsModel {
   @JsonKey(name: "belongs_to_collection")
   final Collection? belongsToCollection;
   final int? budget;
-  final List<Genre>? genres;
+  final List<GenreModel>? genres;
   final String? homepage;
   final int id;
   @JsonKey(name: "imdb_id")
@@ -100,14 +102,25 @@ class Collection {
 }
 
 @JsonSerializable()
-class Genre {
+class GenreModel {
   final int id;
   final String? name;
 
-  Genre({required this.id, required this.name});
+  GenreModel({required this.id, required this.name});
 
-  factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
-  Map<String, dynamic> toJson() => _$GenreToJson(this);
+  factory GenreModel.fromJson(Map<String, dynamic> json) =>
+      _$GenreModelFromJson(json);
+  Map<String, dynamic> toJson() => _$GenreModelToJson(this);
+
+  /// Convert `GenreModel` to `GenreEntity`
+  GenreEntity toEntity() {
+    return GenreEntity(id: id, name: name);
+  }
+
+  /// Convert `GenreEntity` to `GenreModel`
+  factory GenreModel.fromEntity(GenreEntity entity) {
+    return GenreModel(id: entity.id, name: entity.name);
+  }
 }
 
 @JsonSerializable()
