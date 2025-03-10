@@ -5,10 +5,10 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_magic/core/utils/constants/keys.dart';
 
 import '../models/api_response_model.dart';
 import '../utils/constants/urls.dart';
+import '../utils/user_session.dart';
 
 class BaseService {
   Future<Map<String, String>> _buildHeaders() async {
@@ -27,7 +27,7 @@ class BaseService {
   }
 
   Future<String> _fetchToken() async {
-    return accessToken;
+    return await UserSession().getAccessToken() ?? "";
   }
 
   Future<ApiResponseModel<T?>> get<T>(

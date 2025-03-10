@@ -7,7 +7,6 @@ import 'package:movie_magic/presentation/screens/auth_screens/auth_state.dart';
 
 import '../../../../core/services/data_service.dart';
 import '../../../../core/state/app_state.dart';
-import '../../../../core/utils/session_manager.dart';
 import '../../home_screen/home_screen.dart';
 
 @injectable
@@ -18,14 +17,8 @@ class SignInScreenController {
   final AppState appState;
   final AuthState state;
   late final DataService _dataService;
-  late final SessionManager _sessionManager;
 
-  SignInScreenController(
-    this.state,
-    this.appState,
-    this._dataService,
-    this._sessionManager,
-  );
+  SignInScreenController(this.state, this.appState, this._dataService);
 
   void initialize(
     void Function(void Function()) setState,

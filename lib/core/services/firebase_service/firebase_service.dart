@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:movie_magic/core/models/api_response_model.dart';
 
@@ -6,6 +8,7 @@ import 'package:movie_magic/core/models/api_response_model.dart';
 mixin FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   /// Sign In User with Email and Password
   Future<ApiResponseModel<bool>> signInWithEmailAndPassword(
@@ -174,6 +177,19 @@ mixin FirebaseService {
         statusCode: 500,
         message: "Unknown error occurred: ${e.toString()}",
       );
+    }
+  }
+
+  Future<String?> getAccessToken() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> query =
+          await _firestore.collection("keys").get();
+      return query.docs.first.data()["access_token"];
+    } on FirebaseException catch (e) {
+      if (kDebugMode) {
+        print("ERROR GETTING ACCESS TOKEN: ${e.message}");
+      }
+      return null;
     }
   }
 }

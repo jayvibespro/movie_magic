@@ -42,6 +42,7 @@ comprehensive explanation of each package used in the project and its purpose.
 - **shared_preferences**: Persistent storage for simple data
 - **sqflite**: SQLite database plugin for local data storage
 - **path**: Provides common operations for file system paths
+- **flutter_secure_storage**: For local storage of access_token for the api calls
 
 ## Development Tools
 
