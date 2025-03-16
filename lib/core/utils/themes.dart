@@ -5,6 +5,8 @@ import 'constants/colors.dart';
 
 class Themes {
   static final darkTheme = ThemeData(
+    primarySwatch: Colors.blue,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
     useMaterial3: true,
     scaffoldBackgroundColor: cBlack,
     primaryColor: cPrimary,
@@ -134,6 +136,8 @@ class Themes {
 
   static final lightTheme = ThemeData(
     // Define the default brightness and colors.
+    primarySwatch: Colors.blue,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
     scaffoldBackgroundColor: cBlack,
     focusColor: cPrimary,
     useMaterial3: true,
